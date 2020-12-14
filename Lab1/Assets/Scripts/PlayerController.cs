@@ -6,14 +6,15 @@ public class PlayerController : MonoBehaviour
 {
 
     public float speed = 0f;
-    public float maxSpeed = 10f;
-    public float forceMagnitude = 2f;
+    public float maxSpeed = 5f;
+    public float acceleration = 1.5f;
+    public float deceleration = 0.5f;
     private Vector3 movement;
-    //Rigidbody2D playerRigidbody;
+    private float KeyPressedTime;
 
     private void Start()
     {
-        //playerRigidbody = GetComponent<Rigidbody2D>();
+       
     }
 
     void FixedUpdate()
@@ -33,13 +34,18 @@ public class PlayerController : MonoBehaviour
         {
             // Set the movement vector based on the axis input.
             movement.Set(h, 0f, v);
-            speed = Mathf.Min(speed + forceMagnitude * Time.deltaTime, maxSpeed);
+            speed = Mathf.Min(speed + acceleration * Time.deltaTime, maxSpeed);
+            KeyPressedTime = Time.time;
         }
         else
         {
-            speed = Mathf.Max(speed - forceMagnitude * Time.deltaTime * 1.5f, 0);
+            speed = Mathf.Max(speed - deceleration * Time.deltaTime * 1.5f, 0);
         }
 
+        if (speed == maxSpeed)
+        {
+            Debug.Log(KeyPressedTime);
+        }
         // Normalise the movement vector and make it proportional to the speed per second.
         movement = movement.normalized * speed * Time.deltaTime;
         // Move the player to it's current position plus the movement.
