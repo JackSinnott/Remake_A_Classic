@@ -5,51 +5,85 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    public float speed = 0f;
-    public float maxSpeed = 5f;
-    public float acceleration = 1.5f;
-    public float deceleration = 0.5f;
-    private Vector3 movement;
-    private float KeyPressedTime;
+    public float m_moveSpeed = 3.0f;
+    private Rigidbody2D m_playerRGBD;
+    private Animator m_playerAnim;
+    public Vector2 m_movement;
+    private bool m_facingRight = true;
+    private Vector3 m_localScale;
 
-    private void Start()
+    public bool isGrounded = true;
+
+    void Awake()
     {
-       
+        m_playerRGBD = this.GetComponent<Rigidbody2D>();
+        m_playerAnim = this.GetComponent<Animator>();
+        m_localScale = transform.localScale;
     }
 
-    void FixedUpdate()
+    private void Update()
     {
-        // Store the input axes.
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        Jump();
+        m_movement = new Vector2(Input.GetAxis("Horizontal"), 0.0f);
 
-        // Move the player around the scene.
-        Move(h, v);
-       
-    }
-
-    void Move(float h, float v)
-    {
-        if (v != 0 || h != 0)
+        if (m_movement.x != 0f)
         {
-            // Set the movement vector based on the axis input.
-            movement.Set(h, 0f, v);
-            speed = Mathf.Min(speed + acceleration * Time.deltaTime, maxSpeed);
-            KeyPressedTime = Time.time;
+            m_playerAnim.SetBool("isRunning", true);
         }
         else
+            m_playerAnim.SetBool("isRunning", false);
+        
+        if(m_playerRGBD.velocity.y == 0)
         {
-            speed = Mathf.Max(speed - deceleration * Time.deltaTime * 1.5f, 0);
+            m_playerAnim.SetBool("isJumping", false);
+            m_playerAnim.SetBool("isFalling", false);
         }
 
-        if (speed == maxSpeed)
+        if(m_playerRGBD.velocity.y > 0)
         {
-            Debug.Log(KeyPressedTime);
+            m_playerAnim.SetBool("isJumping", true);
         }
-        // Normalise the movement vector and make it proportional to the speed per second.
-        movement = movement.normalized * speed * Time.deltaTime;
-        // Move the player to it's current position plus the movement.
-        GetComponent<Rigidbody2D>().MovePosition(transform.position + movement);
+
+        if (m_playerRGBD.velocity.y < 0)
+        {
+            m_playerAnim.SetBool("isJumping", false);
+            m_playerAnim.SetBool("isFalling", true);
+        }
     }
 
+    private void FixedUpdate()
+    {
+        moveCharacter(m_movement);
+    }
+
+    private void LateUpdate()
+    {
+        if (m_movement.x > 0)
+        {
+            m_facingRight = true;
+        }
+        else if (m_movement.x < 0)
+        {
+            m_facingRight = false;
+        }
+
+        if (((m_facingRight) && (m_localScale.x < 0)) || ((!m_facingRight) && (m_localScale.x > 0)))
+        {
+            m_localScale.x *= -1;
+        }
+
+        transform.localScale = m_localScale;
+    }
+    void moveCharacter(Vector2 m_dir)
+    {
+        m_playerRGBD.velocity = m_dir * m_moveSpeed;
+    }
+
+    void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            
+        }
+    }
 }
