@@ -5,7 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
-  - InBox
+  - Boundary
+  - BoundaryManager
+  - EnemyManager
   layers:
   - Default
   - TransparentFX
@@ -15,7 +17,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Boundary
   - 
   - 
   - 

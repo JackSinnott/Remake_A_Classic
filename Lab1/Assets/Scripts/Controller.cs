@@ -5,9 +5,8 @@ using UnityEngine;
 public class Controller : MonoBehaviour
 {
     public float speed = 1.0f;
-    public BoxCollider2D mapBounds;
     private bool isGrounded;
-    public float jumpPower;
+    float jumpPower;
 
     void Start()
     {
@@ -42,18 +41,6 @@ public class Controller : MonoBehaviour
         {
             isGrounded = true;
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collider)
-    {
-        Debug.Log("Collision started.");
-        Time.timeScale = 1;
-    }
-
-    private void OnTriggerExit2D(Collider2D collider)
-    {
-        Debug.Log("Collision ended.");
-        Time.timeScale = 0;
     }
 }
 
