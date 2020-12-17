@@ -6,33 +6,44 @@ public class Controller : MonoBehaviour
 {
     public float speed = 1.0f;
     private bool isGrounded;
-    float jumpPower;
+    private float jumpPower;
+    private float knockPower;
+    private int playerHealth;
+    bool damaged;
 
     void Start()
     {
-        jumpPower = 3.0f;
+        damaged = false;
+        jumpPower = 4.0f;
+        knockPower = 5.0f;
+        playerHealth = 3;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey("a") || Input.GetKey(KeyCode.LeftArrow))
+        if(!damaged)
         {
-            transform.Translate(Vector3.left * speed * Time.deltaTime);
+            if (Input.GetKey("a") || Input.GetKey(KeyCode.LeftArrow))
+            {
+                transform.Translate(Vector3.left * speed * Time.deltaTime);
+            }
+            if (Input.GetKey("d") || Input.GetKey(KeyCode.RightArrow))
+            {
+                transform.Translate(Vector3.right * speed * Time.deltaTime);
+            }
+            if (Input.GetKey(KeyCode.Space) && isGrounded)
+            {
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
+                isGrounded = false;
+            }
         }
-        if (Input.GetKey("d")|| Input.GetKey(KeyCode.RightArrow))
+
+        if(playerHealth < 1)
         {
-            transform.Translate(Vector3.right * speed * Time.deltaTime);
+            Destroy(transform.gameObject);
         }
-        if (Input.GetKey("s") || Input.GetKey(KeyCode.DownArrow))
-        {
-            transform.Translate(Vector3.down * speed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.Space) && isGrounded)
-        {
-            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
-            isGrounded = false;
-        }
+
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -40,6 +51,33 @@ public class Controller : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            transform.GetComponent<Rigidbody2D>().AddForce(Vector2.left * knockPower, ForceMode2D.Impulse); // change to whatever the speed is.
+            damaged = true;
+            playerHealth--;
+            Debug.Log("You have collided");
+            Debug.Log("Health: " + playerHealth);
+        }
+        else
+        {
+            damaged = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.CompareTag("FireBall"))
+        {
+            transform.GetComponent<Rigidbody2D>().AddForce(Vector2.left * knockPower, ForceMode2D.Impulse); // change to whatever the speed is.
+            Destroy(collider.gameObject);
+            playerHealth--;
+            Debug.Log("You have collided with FireBall");
+            Debug.Log("Health: " + playerHealth);
         }
     }
 }
