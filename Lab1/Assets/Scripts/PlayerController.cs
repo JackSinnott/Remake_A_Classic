@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         m_movement = new Vector2(Input.GetAxis("Horizontal"), 0.0f);
-        Jump(new Vector2(0.0f,jumpVelocity));
+        Jump();
        
     }
 
@@ -35,19 +35,15 @@ public class PlayerController : MonoBehaviour
         m_playerRGBD.velocity = m_dir * m_moveSpeed;
     }
 
-    void Jump(Vector2 m_dir)
+    void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (m_jumped == false)
             {
-                m_dir = Vector2.one * jumpVelocity;
-                m_playerRGBD.velocity = m_dir;
                 m_jumped = true;
                 Debug.Log("Jumping");
             }
         }
-
-       
     }
 }
