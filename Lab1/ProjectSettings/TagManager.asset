@@ -7,6 +7,10 @@ TagManager:
   - Background
   - Enemy
   - LeftWall
+  - Ground
+  - Boundary
+  - BoundaryManager
+  - EnemyManager
   layers:
   - Default
   - TransparentFX
@@ -16,7 +20,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Boundary
   - 
   - 
   - 
