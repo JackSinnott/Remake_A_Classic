@@ -11,6 +11,9 @@ TagManager:
   - Boundary
   - BoundaryManager
   - EnemyManager
+  - Background
+  - Enemy
+  - FireBall
   layers:
   - Default
   - TransparentFX
