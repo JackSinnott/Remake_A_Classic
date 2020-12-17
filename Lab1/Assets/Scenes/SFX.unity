@@ -274,6 +274,11 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
+  - soundName: EnemyShooting
+    clip: {fileID: 8300000, guid: e5e3f12de81b48242a4207d9860823ba, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
 --- !u!4 &230468777
 Transform:
   m_ObjectHideFlags: 0

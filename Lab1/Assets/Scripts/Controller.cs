@@ -27,7 +27,6 @@ public class Controller : MonoBehaviour
             if (Input.GetKey("a") || Input.GetKey(KeyCode.LeftArrow))
             {
                 transform.Translate(Vector3.left * speed * Time.deltaTime);
-                GetComponent<AudioSource>().Play();
             }
             if (Input.GetKey("d") || Input.GetKey(KeyCode.RightArrow))
             {
