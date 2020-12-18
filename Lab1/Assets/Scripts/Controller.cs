@@ -59,7 +59,7 @@ public class Controller : MonoBehaviour
             readyToFire = true;
         }
 
-        if (Input.GetKey("k")&& readyToFire) // left click
+        if (Input.GetKey("k") && readyToFire) // left click
         {
             Fire(); // calls
         }
@@ -89,6 +89,22 @@ public class Controller : MonoBehaviour
         {
             damaged = false;
         }
+
+        if(collision.gameObject.CompareTag("Potion"))
+        {
+            playerHealth += 2;
+            Destroy(collision.gameObject);
+            Debug.Log("Health: " + playerHealth);
+        } 
+
+
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            shot.gameObject.GetComponent<SpriteRenderer>().sprite = collision.gameObject.GetComponent<SpriteRenderer>().sprite;
+            Destroy(collision.gameObject);
+        }
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -117,9 +133,7 @@ public class Controller : MonoBehaviour
         {
             fireball.GetComponent<Rigidbody2D>().velocity = speedFire * Vector2.right; // bullet is fired
         }
-
         readyToFire = false;
-
     }
 }
 

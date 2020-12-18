@@ -15,6 +15,9 @@ TagManager:
   - Enemy
   - FireBall
   - Wall
+  - Projectile
+  - Potion
+  - Item
   layers:
   - Default
   - TransparentFX
