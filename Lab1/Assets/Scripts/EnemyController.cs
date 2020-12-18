@@ -4,40 +4,53 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public GameObject m_enemies; // GameObject = ghouls
-    public Vector3 m_spawnValues; // Allows us to assign spawn values in editor
+    [SerializeField]
+    Transform player;
+    [SerializeField]
+    float agroRange;
+    [SerializeField]
+    float movespeed;
 
-    public int m_hazardCount;
-    public float m_spawnTimer;
-    public float m_startWait;
-    public float m_waveWait;
-
-    // Start is called before the first frame update
+    SpriteRenderer rend;
+    Rigidbody2D rb2D;
     void Start()
     {
-        StartCoroutine(SpawnWaves());
+        rb2D = GetComponent<Rigidbody2D>();
+        rend = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
-    }
+        float disToPlayer = Vector2.Distance(transform.position, player.position);
+        //print("Dis To Player : " + disToPlayer);
 
-    IEnumerator SpawnWaves()
-    {
-        yield return new WaitForSeconds(m_startWait);
-        while (true)
+        if (disToPlayer < agroRange)
         {
-            for (int i = 0; i < m_hazardCount; i++)
-            {
-                Vector3 m_spawnPosition = new Vector3(Random.Range(m_spawnValues.x, m_spawnValues.x + 100f), m_spawnValues.y, m_spawnValues.z);
-                Quaternion m_spawnRotation = Quaternion.identity;
-                GameObject clone;
-                clone = Instantiate(m_enemies, m_spawnPosition, m_spawnRotation);
-                yield return new WaitForSeconds(m_spawnTimer);
-            }
-            yield return new WaitForSeconds(m_waveWait);
+            ChasePlayer();
+        }
+        else
+        {
+            StopChasingPlayer();
         }
     }
+
+    private void ChasePlayer()
+    {
+        if (transform.position.x < player.position.x)
+        {
+            rb2D.velocity = new Vector2(movespeed, 0f);
+            transform.localScale = new Vector2(.2f, 2f);
+        }
+        else if (transform.position.x > player.position.x)
+        {
+            rb2D.velocity = new Vector2(-movespeed, 0f);
+            transform.localScale = new Vector2(-.2f, 2f);
+        }
+    }
+
+    void StopChasingPlayer()
+    {
+        rb2D.velocity = new Vector2(0f, 0f);
+    }
+
 }
