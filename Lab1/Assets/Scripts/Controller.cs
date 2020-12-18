@@ -10,6 +10,13 @@ public class Controller : MonoBehaviour
     private float knockPower;
     private int playerHealth;
     bool damaged;
+    public GameObject shot; 
+    GameObject fireball;
+    public Transform shotSpawn; // where the bullet fires
+    private float fireRate;
+    private float speedFire; // speed of the bullet
+    private bool readyToFire;
+    private float nextFire; // when ready to shoot again
 
     void Start()
     {
@@ -17,6 +24,8 @@ public class Controller : MonoBehaviour
         jumpPower = 4.0f;
         knockPower = 5.0f;
         playerHealth = 3;
+        speedFire = 8.0f;
+        fireRate = 2.0f;
     }
 
     // Update is called once per frame
@@ -38,11 +47,23 @@ public class Controller : MonoBehaviour
                 isGrounded = false;
             }
         }
-
+       
         if(playerHealth < 1)
         {
             Destroy(transform.gameObject);
         }
+
+
+        if (!readyToFire && Time.time > nextFire) // checks
+        {
+            readyToFire = true;
+        }
+
+        if (Input.GetKey("k")&& readyToFire) // left click
+        {
+            Fire(); // calls
+        }
+
 
     }
 
@@ -81,6 +102,24 @@ public class Controller : MonoBehaviour
             Debug.Log("You have collided with FireBall");
             Debug.Log("Health: " + playerHealth);
         }
+    }
+
+    void Fire()
+    {
+        fireball = Instantiate(shot, shotSpawn.position, shotSpawn.rotation); // create
+        nextFire = Time.time + fireRate;
+
+        if(Input.GetKey("a"))
+        {
+            fireball.GetComponent<Rigidbody2D>().velocity = speedFire * Vector2.left; // bullet is fired
+        }
+        else
+        {
+            fireball.GetComponent<Rigidbody2D>().velocity = speedFire * Vector2.right; // bullet is fired
+        }
+
+        readyToFire = false;
+
     }
 }
 
