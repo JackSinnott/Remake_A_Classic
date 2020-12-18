@@ -14,6 +14,7 @@ TagManager:
   - Background
   - Enemy
   - FireBall
+  - Wall
   layers:
   - Default
   - TransparentFX
