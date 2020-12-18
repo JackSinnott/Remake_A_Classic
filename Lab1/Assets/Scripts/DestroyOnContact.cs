@@ -6,14 +6,16 @@ public class DestroyOnContact : MonoBehaviour
 {
 
     public GameObject bloodExplosion;
-    
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Enemy"))
         {
+
+            Instantiate(bloodExplosion, transform.position, transform.rotation);
             Destroy(other.gameObject);
             Destroy(transform.gameObject);
-            Instantiate(bloodExplosion, transform.position, transform.rotation);
+
         }
 
         if(other.CompareTag("Wall"))
