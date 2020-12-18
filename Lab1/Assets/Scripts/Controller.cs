@@ -81,6 +81,7 @@ public class Controller : MonoBehaviour
             transform.GetComponent<Rigidbody2D>().AddForce(Vector2.left * knockPower, ForceMode2D.Impulse); // change to whatever the speed is.
             damaged = true;
             playerHealth--;
+            FindObjectOfType<AudioManager>().play("EnemyHitPlayer");
             Debug.Log("You have collided");
             Debug.Log("Health: " + playerHealth);
         }
@@ -97,6 +98,7 @@ public class Controller : MonoBehaviour
             transform.GetComponent<Rigidbody2D>().AddForce(Vector2.left * knockPower, ForceMode2D.Impulse); // change to whatever the speed is.
             Destroy(collider.gameObject);
             playerHealth--;
+            FindObjectOfType<AudioManager>().play("BulletHitPlayer");
             Debug.Log("You have collided with FireBall");
             Debug.Log("Health: " + playerHealth);
         }
