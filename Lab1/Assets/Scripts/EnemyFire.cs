@@ -12,6 +12,7 @@ public class EnemyFire : MonoBehaviour
     private float speed; // speed of the bullet
     private bool readyToFire;
     private float nextFire; // when ready to shoot again
+
     void Start()
     {
         fireRate = 3.0f;
@@ -35,4 +36,5 @@ public class EnemyFire : MonoBehaviour
         fireball.GetComponent<Rigidbody2D>().velocity = speed * Vector2.left; // bullet is fired
         readyToFire = false;
     }
+
 }
