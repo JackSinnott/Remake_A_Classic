@@ -15,11 +15,17 @@ public class Controller : MonoBehaviour
 
     //End of playerAttack Code
 
-
-
-    public float speed = 1.0f;
-    private bool isGrounded;
+    // Start of movement Code
+    public float m_moveSpeed;
+    private float moveAmountHorizontal;
     private float jumpPower;
+    public float m_movement;
+    bool m_facingRight = true;
+
+    // End of movement code
+
+
+    private bool isGrounded;
     private float knockPower;
     private int playerHealth;
     bool damaged;
@@ -31,25 +37,25 @@ public class Controller : MonoBehaviour
     private bool readyToFire;
     private float nextFire; // when ready to shoot again
 
-    public Animator Anim;
+    private Animator Anim;
     private SpriteRenderer spriteRend;
     private Rigidbody2D playerRGBD;
 
     public void Awake()
     {
-        spriteRend = GetComponent<SpriteRenderer>();
-        playerRGBD = GetComponent<Rigidbody2D>();
+        spriteRend = this.GetComponent<SpriteRenderer>();
+        playerRGBD = this.GetComponent<Rigidbody2D>();
+        Anim = this.GetComponent<Animator>();
     }
 
     void Start()
     {
         damaged = false;
-        jumpPower = 3.0f;
+        jumpPower = 8.0f;
         knockPower = 5.0f;
         playerHealth = 3;
         speedFire = 8.0f;
         fireRate = 2.0f;
-        
     }
 
     // Update is called once per frame
@@ -58,55 +64,27 @@ public class Controller : MonoBehaviour
 
         if (!damaged)
         {
-            if (Input.GetKey("a") || Input.GetKey(KeyCode.LeftArrow))
-            {
-                transform.Translate(Vector3.left * speed * Time.deltaTime);
-                // if the variable isn't empty (we have a reference to our SpriteRenderer
-                if (spriteRend != null)
-                {
-                    // flip the sprite
-                    spriteRend.flipX = true;
-
-                }
-                Anim.SetBool("IsWalking", true);
-            }
-
-
-
-            else if (Input.GetKey("d") || Input.GetKey(KeyCode.RightArrow))
-            {
-                transform.Translate(Vector3.right * speed * Time.deltaTime);
-                // if the variable isn't empty (we have a reference to our SpriteRenderer
-                if (spriteRend != null)
-                {
-                    // flip the sprite
-                    spriteRend.flipX = false;
-
-                }
-                Anim.SetBool("IsWalking", true);
-            }
-            else
-            {
-                Anim.SetBool("IsWalking", false);
-            }
-
-            if (Input.GetKey(KeyCode.Space) && isGrounded)
-            {
-                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
-                Anim.SetFloat("JumpingVert", playerRGBD.velocity.magnitude);
-                isGrounded = false;
-            }
-            else
-            {
-                Anim.SetFloat("JumpingVert", 0);
-            }
+            m_movement = Input.GetAxis("Horizontal");            
         }
+        Anim.SetFloat("Speed", Mathf.Abs(m_movement));
 
-        if (playerHealth < 1)
+        if(m_movement < 0f)
         {
-            Destroy(transform.gameObject);
+            m_facingRight = false;
+        }
+        else 
+        {
+            m_facingRight = true;
         }
 
+        if (m_facingRight)
+        {
+            spriteRend.flipX = false;
+        }
+        else
+        {
+            spriteRend.flipX = true;
+        }
 
         if (!readyToFire && Time.time > nextFire) // checks
         {
@@ -117,8 +95,32 @@ public class Controller : MonoBehaviour
         {
             Fire(); // calls
         }
+    }
 
-        Debug.Log(playerRGBD.velocity.magnitude);
+    private void FixedUpdate()
+    {
+        moveCharacter(m_movement);
+        Jump();
+
+        playerRGBD.velocity = new Vector2(moveAmountHorizontal, playerRGBD.velocity.y);
+    }
+
+    void moveCharacter(float m_dir)
+    {
+        moveAmountHorizontal = m_dir * m_moveSpeed;
+    }
+
+    void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            Anim.SetBool("IsJumping", true);
+            isGrounded = false;
+            float verticalCheck = this.transform.position.y; // Used to check if our y value is growing or shrinking
+            float yVal = verticalCheck;
+
+            playerRGBD.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);                    
+        }    
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -126,8 +128,10 @@ public class Controller : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+            Anim.SetBool("IsJumping", false);
         }
     }
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
@@ -188,29 +192,6 @@ public class Controller : MonoBehaviour
             fireball.GetComponent<Rigidbody2D>().velocity = speedFire * Vector2.right; // bullet is fired
         }
         readyToFire = false;
-    }
-
-    private void Attack()
-    {
-        // If so swing away
-        if (timebtwAttack <= 0)
-        {
-            if (Input.GetKeyDown(KeyCode.J))
-            {
-                timebtwAttack = startTimeBtwAttack;
-                Collider2D[] enemiesToDamage = Physics2D.OverlapBoxAll(attackPos.position, attackRange, whatIsEnemy);
-                //Anim.SetBool("IsAttacking", true);
-                for (int i = 0; i < enemiesToDamage.Length; i++)
-                {
-                    enemiesToDamage[i].GetComponent<EnemyCollision>().TakeDamage(damage);
-                }
-                
-            }
-        }
-        else
-        {
-            timebtwAttack -= Time.deltaTime;
-        }
     }
 
     private void OnDrawGizmosSelected()

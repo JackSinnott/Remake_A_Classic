@@ -7,39 +7,48 @@ public class PlayerController : MonoBehaviour
 
     public float m_moveSpeed;
     private Rigidbody2D m_playerRGBD;
-    public Vector2 m_movement;
+    public float m_movement;
+    private float moveAmountHorizontal;
+    private float moveAmountVertical;
+    private float jumpPower;
 
-    public float jumpVelocity;
 
     void Awake()
     {
         m_playerRGBD = this.GetComponent<Rigidbody2D>();
     }
 
+    private void Start()
+    {
+        jumpPower = 8.0f;
+    }
+
     private void Update()
     {
-        m_movement = new Vector2(Input.GetAxis("Horizontal"), 0.0f);
-       
-       
+        m_movement = Input.GetAxis("Horizontal");
+
+
     }
 
     private void FixedUpdate()
     {
         moveCharacter(m_movement);
         Jump();
+
+        m_playerRGBD.velocity = new Vector2(moveAmountHorizontal, m_playerRGBD.velocity.y);
     }
 
-    void moveCharacter(Vector2 m_dir)
+    void moveCharacter(float m_dir)
     {
-        m_playerRGBD.velocity = m_dir * m_moveSpeed;
+        moveAmountHorizontal = m_dir * m_moveSpeed;
     }
 
     void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            m_playerRGBD.AddRelativeForce(new Vector2(0,jumpVelocity), ForceMode2D.Impulse);
-
+            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
         }
+       
     }
 }
