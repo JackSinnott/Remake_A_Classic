@@ -5,12 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    public float m_moveSpeed = 3.0f;
+    public float m_moveSpeed;
     private Rigidbody2D m_playerRGBD;
     public Vector2 m_movement;
 
-    bool m_jumped = false;
-    public float jumpVelocity = 2f;
+    public float jumpVelocity;
 
     void Awake()
     {
@@ -20,14 +19,14 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         m_movement = new Vector2(Input.GetAxis("Horizontal"), 0.0f);
-        Jump();
+       
        
     }
 
     private void FixedUpdate()
     {
         moveCharacter(m_movement);
-
+        Jump();
     }
 
     void moveCharacter(Vector2 m_dir)
@@ -39,11 +38,8 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (m_jumped == false)
-            {
-                m_jumped = true;
-                Debug.Log("Jumping");
-            }
+            m_playerRGBD.AddRelativeForce(new Vector2(0,jumpVelocity), ForceMode2D.Impulse);
+
         }
     }
 }

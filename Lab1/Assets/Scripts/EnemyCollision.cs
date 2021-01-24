@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyCollision : MonoBehaviour
 {
+    int health;
     private ItemDrop getItem;
     // Start is called before the first frame update
     void Start()
@@ -22,5 +23,12 @@ public class EnemyCollision : MonoBehaviour
                 Debug.Log("Dropped an Item " + getItem);
             }
         }
+
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        Debug.Log("Damage Taken");
     }
 }

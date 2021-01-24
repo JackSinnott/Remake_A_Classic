@@ -28,7 +28,7 @@ TagManager:
   - 
   - 
   - Boundary
-  - 
+  - Enemy
   - 
   - 
   - 
@@ -58,9 +58,9 @@ TagManager:
   - name: Background
     uniqueID: 1984127299
     locked: 0
-  - name: Enemy
-    uniqueID: 1990161145
-    locked: 0
   - name: Player
     uniqueID: 3510036359
+    locked: 0
+  - name: Enemy
+    uniqueID: 1990161145
     locked: 0
