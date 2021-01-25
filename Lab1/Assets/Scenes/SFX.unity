@@ -524,7 +524,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edcdf720a2ad4a44b84930c5278f1661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  m_moveSpeed: 0
+  m_movement: 0
   shot: {fileID: 0}
   shotSpawn: {fileID: 0}
 --- !u!50 &631037615
@@ -555,7 +556,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 631037610}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1a11d0850efe1334595e9dab9da5631d, type: 3}
@@ -736,7 +737,7 @@ SpriteRenderer:
   m_Size: {x: 0.33, y: 0.45}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &708909709

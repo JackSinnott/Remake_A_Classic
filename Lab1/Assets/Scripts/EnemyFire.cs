@@ -10,7 +10,7 @@ public class EnemyFire : MonoBehaviour
     public Transform shotSpawn; // where the bullet fires
     private float fireRate;
     private float speed; // speed of the bullet
-    private bool readyToFire;
+    private bool readyToFire = false;
     private float nextFire; // when ready to shoot again
 
     void Start()
@@ -26,7 +26,7 @@ public class EnemyFire : MonoBehaviour
         {
             readyToFire = true;
             fireball = Instantiate(shot, shotSpawn.position, shotSpawn.rotation); // create
-            FindObjectOfType<AudioManager>().play("EnemyShooting");
+            
             fire();
         }
     }

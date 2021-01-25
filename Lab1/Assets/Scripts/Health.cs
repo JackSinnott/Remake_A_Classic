@@ -25,7 +25,7 @@ public class Health : MonoBehaviour
         }
         for (int i = 0; i < hearts.Length; i++)
         {
-            if(i < health)
+            if (i < health)
             {
                 hearts[i].sprite = fullHeart;
             }
@@ -51,5 +51,20 @@ public class Health : MonoBehaviour
         {
             health -= 1;
         }
+    }
+
+    public void takeDamage(int damage)
+    {
+        health -= damage;
+    }
+
+    public void heal(int heal)
+    {
+        health += heal;
+    }
+
+    public int getHealth()
+    {
+        return health;
     }
 }

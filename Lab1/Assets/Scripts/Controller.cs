@@ -1,14 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Controller : MonoBehaviour
 {
-    public float speed = 1.0f;
-    private bool isGrounded;
+    // Start of movement Code
+    public float m_moveSpeed;
+    private float moveAmountHorizontal;
     private float jumpPower;
+    public float m_movement;
+    bool m_facingRight = true;
+
+    // End of movement code
+    Health playerHealth;
+    private bool isGrounded;
     private float knockPower;
-    private int playerHealth;
     bool damaged;
     public GameObject shot; 
     GameObject fireball;
@@ -17,13 +24,25 @@ public class Controller : MonoBehaviour
     private float speedFire; // speed of the bullet
     private bool readyToFire;
     private float nextFire; // when ready to shoot again
+    bool hit = false;
+    private Animator Anim;
+    private SpriteRenderer spriteRend;
+    private Rigidbody2D playerRGBD;
+    float timer = 2f;
+
+    public void Awake()
+    {
+        spriteRend = this.GetComponent<SpriteRenderer>();
+        playerRGBD = this.GetComponent<Rigidbody2D>();
+        Anim = this.GetComponent<Animator>();
+        playerHealth = GetComponent<Health>();
+    }
 
     void Start()
     {
         damaged = false;
-        jumpPower = 4.0f;
+        jumpPower = 5.0f;
         knockPower = 5.0f;
-        playerHealth = 3;
         speedFire = 8.0f;
         fireRate = 2.0f;
     }
@@ -31,28 +50,32 @@ public class Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!damaged)
+        
+
+        if (!damaged)
         {
-            if (Input.GetKey("a") || Input.GetKey(KeyCode.LeftArrow))
-            {
-                transform.Translate(Vector3.left * speed * Time.deltaTime);
-            }
-            if (Input.GetKey("d") || Input.GetKey(KeyCode.RightArrow))
-            {
-                transform.Translate(Vector3.right * speed * Time.deltaTime);
-            }
-            if (Input.GetKey(KeyCode.Space) && isGrounded)
-            {
-                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
-                isGrounded = false;
-            }
+            m_movement = Input.GetAxis("Horizontal");            
         }
-       
-        if(playerHealth < 1)
+        Anim.SetFloat("Speed", Mathf.Abs(m_movement));
+
+        if(m_movement < 0f)
         {
-            Destroy(transform.gameObject);
+            m_facingRight = false; 
+        }
+        else 
+        {
+            m_facingRight = true;
         }
 
+        if (m_facingRight)
+        {
+            spriteRend.flipX = false;
+           
+        }
+        else
+        {
+            spriteRend.flipX = true;
+        }
 
         if (!readyToFire && Time.time > nextFire) // checks
         {
@@ -64,7 +87,38 @@ public class Controller : MonoBehaviour
             Fire(); // calls
         }
 
+        checkStatus();
+    }
 
+    private void FixedUpdate()
+    {
+        moveCharacter(m_movement);
+        Jump();
+
+        playerRGBD.velocity = new Vector2(moveAmountHorizontal, playerRGBD.velocity.y);
+        if(hit)
+        {
+            playerRGBD.AddForce(Vector2.left * knockPower, ForceMode2D.Impulse); // change to whatever the speed is.
+            hit = false;
+        }
+    }
+
+    void moveCharacter(float m_dir)
+    {
+        moveAmountHorizontal = m_dir * m_moveSpeed;
+    }
+
+    void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            Anim.SetBool("IsJumping", true);
+            isGrounded = false;
+            float verticalCheck = this.transform.position.y; // Used to check if our y value is growing or shrinking
+            float yVal = verticalCheck;
+
+            playerRGBD.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);                    
+        }    
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -72,18 +126,20 @@ public class Controller : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+            Anim.SetBool("IsJumping", false);
         }
     }
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            transform.GetComponent<Rigidbody2D>().AddForce(Vector2.left * knockPower, ForceMode2D.Impulse); // change to whatever the speed is.
+            hit = true;
             damaged = true;
-            playerHealth--;
-            FindObjectOfType<AudioManager>().play("EnemyHitPlayer");
+            playerHealth.takeDamage(1);
+            FindObjectOfType<AudioManager>().play("PlayerHit_Enemy");
             Debug.Log("You have collided");
-            Debug.Log("Health: " + playerHealth);
+            
         }
         else
         {
@@ -92,9 +148,9 @@ public class Controller : MonoBehaviour
 
         if(collision.gameObject.CompareTag("Potion"))
         {
-            playerHealth += 2;
+            playerHealth.heal(2);
             Destroy(collision.gameObject);
-            Debug.Log("Health: " + playerHealth);
+            
         } 
 
 
@@ -111,13 +167,15 @@ public class Controller : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("FireBall"))
         {
-            transform.GetComponent<Rigidbody2D>().AddForce(Vector2.left * knockPower, ForceMode2D.Impulse); // change to whatever the speed is.
+            
             Destroy(collider.gameObject);
-            playerHealth--;
-            FindObjectOfType<AudioManager>().play("BulletHitPlayer");
+            playerHealth.takeDamage(1);
+            FindObjectOfType<AudioManager>().play("PlayerHit_Bullet");
             Debug.Log("You have collided with FireBall");
-            Debug.Log("Health: " + playerHealth);
+           
         }
+
+        
     }
 
     void Fire()
@@ -135,5 +193,23 @@ public class Controller : MonoBehaviour
         }
         readyToFire = false;
     }
+
+    // see if we are dead
+    private void checkStatus()
+    {
+        if (playerHealth.getHealth() == 0)
+        {
+            Anim.SetTrigger("IsDead");
+         
+            timer -= Time.deltaTime;
+
+            if (timer <= 0)
+            {
+                //SceneManager.LoadScene("Game");
+                Destroy(this.gameObject);
+            }
+        }
+    }
+
 }
 
