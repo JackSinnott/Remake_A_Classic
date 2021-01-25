@@ -40,12 +40,14 @@ public class Controller : MonoBehaviour
     private Animator Anim;
     private SpriteRenderer spriteRend;
     private Rigidbody2D playerRGBD;
+    private Transform weapon;
 
     public void Awake()
     {
         spriteRend = this.GetComponent<SpriteRenderer>();
         playerRGBD = this.GetComponent<Rigidbody2D>();
         Anim = this.GetComponent<Animator>();
+        weapon = GetComponentInChildren<Transform>();
     }
 
     void Start()
@@ -80,6 +82,7 @@ public class Controller : MonoBehaviour
         if (m_facingRight)
         {
             spriteRend.flipX = false;
+           
         }
         else
         {

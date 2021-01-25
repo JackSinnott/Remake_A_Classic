@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8031520960457939796}
   - component: {fileID: 8031520960457939799}
   - component: {fileID: 8031520960457939798}
+  - component: {fileID: 5756007069349398564}
   m_Layer: 9
   m_Name: Zombie
   m_TagString: Untagged
@@ -144,6 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97674c02aecfbad46bada190f7b9320a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Anim: {fileID: 5756007069349398564}
 --- !u!114 &8031520960457939798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,3 +158,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32375ee1c0818d04cae13db3c1674545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &5756007069349398564
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8031520960457939803}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a50bdd21dd687d14eba036646e30fedd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
