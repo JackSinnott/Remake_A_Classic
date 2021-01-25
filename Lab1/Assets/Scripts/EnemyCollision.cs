@@ -17,11 +17,6 @@ public class EnemyCollision : MonoBehaviour
         
     }
 
-    private void Update()
-    {
-        
-    }
-
     // Update is called once per frame
     void OnTriggerEnter2D(Collider2D collider)
     {
