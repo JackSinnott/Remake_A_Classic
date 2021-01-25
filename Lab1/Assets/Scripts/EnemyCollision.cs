@@ -14,7 +14,16 @@ public class EnemyCollision : MonoBehaviour
     void Start()
     {
         getItem = GetComponent<ItemDrop>();
-        
+        deathTimer = .75f;
+
+    }
+
+    private void Update()
+    {
+        if (health <= 0)
+        {
+            Die();
+        }
     }
 
     // Update is called once per frame
@@ -36,18 +45,14 @@ public class EnemyCollision : MonoBehaviour
         health -= damage;
         Debug.Log("Damage Taken");
 
-        if (health <= 0)
-        {
-            Die();
-        }
+        
     }
 
     void Die()
     {
         Anim.SetBool("IsDead", true);
         Debug.Log("EnemyDied");
-        deathTimer = .75f;
-        this.enabled = false;
+        
         GetComponent<Collider2D>().enabled = false;
 
         deathTimer -= Time.deltaTime;
@@ -55,9 +60,9 @@ public class EnemyCollision : MonoBehaviour
 
         if (deathTimer <= 0f)
         {
-            Destroy(transform.gameObject);
+            Destroy(this.gameObject);
             Debug.Log(deathTimer);
-            deathTimer = .75f;
+            deathTimer = 1f;
         }
     }
 

@@ -7,7 +7,7 @@ public class BoundaryManager : MonoBehaviour
     private BoxCollider2D managerBox;
     private Transform player;
     public GameObject boundaryObject;
-    public GameObject enemyManager;
+    //public GameObject enemyManager;
 
 
     // Start is called before the first frame update
@@ -29,12 +29,12 @@ public class BoundaryManager : MonoBehaviour
             managerBox.bounds.min.y < player.position.y && player.position.y < managerBox.bounds.max.y)
         {
             boundaryObject.SetActive(true);
-            enemyManager.SetActive(true);
+            //enemyManager.SetActive(true);
         }
         else
         {
             boundaryObject.SetActive(false);
-            enemyManager.SetActive(false);
+            //enemyManager.SetActive(false);
         }
     }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Controller : MonoBehaviour
 {
@@ -12,11 +13,9 @@ public class Controller : MonoBehaviour
     bool m_facingRight = true;
 
     // End of movement code
-
-    PlayerAttack m_playAttack;
+    Health playerHealth;
     private bool isGrounded;
     private float knockPower;
-    private int playerHealth;
     bool damaged;
     public GameObject shot; 
     GameObject fireball;
@@ -25,18 +24,18 @@ public class Controller : MonoBehaviour
     private float speedFire; // speed of the bullet
     private bool readyToFire;
     private float nextFire; // when ready to shoot again
-
+    bool hit = false;
     private Animator Anim;
     private SpriteRenderer spriteRend;
     private Rigidbody2D playerRGBD;
-    private Transform weapon;
+    float timer = 2f;
 
     public void Awake()
     {
         spriteRend = this.GetComponent<SpriteRenderer>();
         playerRGBD = this.GetComponent<Rigidbody2D>();
         Anim = this.GetComponent<Animator>();
-        weapon = GetComponentInChildren<Transform>();
+        playerHealth = GetComponent<Health>();
     }
 
     void Start()
@@ -44,7 +43,6 @@ public class Controller : MonoBehaviour
         damaged = false;
         jumpPower = 5.0f;
         knockPower = 5.0f;
-        playerHealth = 3;
         speedFire = 8.0f;
         fireRate = 2.0f;
     }
@@ -88,6 +86,8 @@ public class Controller : MonoBehaviour
         {
             Fire(); // calls
         }
+
+        checkStatus();
     }
 
     private void FixedUpdate()
@@ -96,6 +96,11 @@ public class Controller : MonoBehaviour
         Jump();
 
         playerRGBD.velocity = new Vector2(moveAmountHorizontal, playerRGBD.velocity.y);
+        if(hit)
+        {
+            playerRGBD.AddForce(Vector2.left * knockPower, ForceMode2D.Impulse); // change to whatever the speed is.
+            hit = false;
+        }
     }
 
     void moveCharacter(float m_dir)
@@ -129,12 +134,12 @@ public class Controller : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            transform.GetComponent<Rigidbody2D>().AddForce(Vector2.left * knockPower, ForceMode2D.Impulse); // change to whatever the speed is.
+            hit = true;
             damaged = true;
-            playerHealth--;
-            FindObjectOfType<AudioManager>().play("EnemyHitPlayer");
+            playerHealth.takeDamage(1);
+            FindObjectOfType<AudioManager>().play("PlayerHit_Enemy");
             Debug.Log("You have collided");
-            Debug.Log("Health: " + playerHealth);
+            
         }
         else
         {
@@ -143,9 +148,9 @@ public class Controller : MonoBehaviour
 
         if(collision.gameObject.CompareTag("Potion"))
         {
-            playerHealth += 2;
+            playerHealth.heal(2);
             Destroy(collision.gameObject);
-            Debug.Log("Health: " + playerHealth);
+            
         } 
 
 
@@ -162,13 +167,15 @@ public class Controller : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("FireBall"))
         {
-            transform.GetComponent<Rigidbody2D>().AddForce(Vector2.left * knockPower, ForceMode2D.Impulse); // change to whatever the speed is.
+            
             Destroy(collider.gameObject);
-            playerHealth--;
-            FindObjectOfType<AudioManager>().play("BulletHitPlayer");
+            playerHealth.takeDamage(1);
+            FindObjectOfType<AudioManager>().play("PlayerHit_Bullet");
             Debug.Log("You have collided with FireBall");
-            Debug.Log("Health: " + playerHealth);
+           
         }
+
+        
     }
 
     void Fire()
@@ -187,7 +194,22 @@ public class Controller : MonoBehaviour
         readyToFire = false;
     }
 
-   
+    // see if we are dead
+    private void checkStatus()
+    {
+        if (playerHealth.getHealth() == 0)
+        {
+            Anim.SetTrigger("IsDead");
+         
+            timer -= Time.deltaTime;
+
+            if (timer <= 0)
+            {
+                //SceneManager.LoadScene("Game");
+                Destroy(this.gameObject);
+            }
+        }
+    }
 
 }
 

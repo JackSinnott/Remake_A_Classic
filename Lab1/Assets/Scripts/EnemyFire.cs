@@ -26,7 +26,7 @@ public class EnemyFire : MonoBehaviour
         {
             readyToFire = true;
             fireball = Instantiate(shot, shotSpawn.position, shotSpawn.rotation); // create
-            //FindObjectOfType<AudioManager>().play("EnemyShooting");
+            
             fire();
         }
     }
