@@ -42,7 +42,7 @@ public class Controller : MonoBehaviour
     void Start()
     {
         damaged = false;
-        jumpPower = 8.0f;
+        jumpPower = 5.0f;
         knockPower = 5.0f;
         playerHealth = 3;
         speedFire = 8.0f;

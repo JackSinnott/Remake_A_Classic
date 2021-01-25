@@ -60,7 +60,7 @@ public class EnemyCollision : MonoBehaviour
 
         if (deathTimer <= 0f)
         {
-            Destroy(this.gameObject);
+            Destroy(transform.gameObject);
             Debug.Log(deathTimer);
             deathTimer = .75f;
         }

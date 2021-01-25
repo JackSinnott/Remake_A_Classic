@@ -561,7 +561,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 546776087}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -59.98, y: -11.26, z: 140.24297}
+  m_LocalPosition: {x: -61.28, y: -11.19499, z: 140.24297}
   m_LocalScale: {x: 3.1934493, y: 3.1934493, z: 3.1934493}
   m_Children: []
   m_Father: {fileID: 671010688}
@@ -1949,7 +1949,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edcdf720a2ad4a44b84930c5278f1661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  m_moveSpeed: 5
+  m_movement: 0
+  shot: {fileID: 0}
+  shotSpawn: {fileID: 0}
 --- !u!50 &1553068344
 Rigidbody2D:
   serializedVersion: 4
@@ -2608,10 +2611,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: BoundaryManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3077807630172177209, guid: f89d22b3bb4140b42a75f2235cb2a48b,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0.042069256
+      objectReference: {fileID: 0}
+    - target: {fileID: 3077807630172177209, guid: f89d22b3bb4140b42a75f2235cb2a48b,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.9158615
+      objectReference: {fileID: 0}
+    - target: {fileID: 3077807630172177209, guid: f89d22b3bb4140b42a75f2235cb2a48b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4501121072882829633, guid: f89d22b3bb4140b42a75f2235cb2a48b,
         type: 3}
       propertyPath: enemyManager
       value: 
       objectReference: {fileID: 1749381539}
+    - target: {fileID: 4501121072882829633, guid: f89d22b3bb4140b42a75f2235cb2a48b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f89d22b3bb4140b42a75f2235cb2a48b, type: 3}
