@@ -10,20 +10,11 @@ public class PlayerAttack : MonoBehaviour
 
     public Transform attackPos;
     public LayerMask whatIsEnemy;
-    public Vector2 attackRange;
+    public float attackRange;
     public int damage; // Not really necessary for normal enemies but some big enemies or bosses could take multiple hits!
 
     Collider2D[] enemiesToDamage;
-
-    public GameObject weapon;
     public Animator Anim;
-
-
-    private void Start()
-    {
-        weapon.GetComponent<SpriteRenderer>().enabled = false;
-        
-    }
 
     private void Update()
     {
@@ -35,7 +26,7 @@ public class PlayerAttack : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.J))
             {  
                 timebtwAttack = startTimeBtwAttack;
-                enemiesToDamage = Physics2D.OverlapBoxAll(attackPos.position, attackRange, whatIsEnemy);
+                enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemy);
                 Anim.SetTrigger("Attack");
                 for (int i = 0; i < enemiesToDamage.Length; i++)
                 {
@@ -58,6 +49,6 @@ public class PlayerAttack : MonoBehaviour
             return;
 
         Gizmos.color = Color.red;
-        Gizmos.DrawCube(attackPos.position, attackRange);
+        Gizmos.DrawWireSphere(attackPos.position, attackRange);
     }
 }
