@@ -57,9 +57,13 @@ public class EnemyCollision : MonoBehaviour
 
         deathTimer -= Time.deltaTime;
 
+
         if (deathTimer <= 0f)
         {
+            this.GetComponent<SpriteRenderer>().enabled = false;
             Destroy(this.gameObject);
+            Debug.Log(deathTimer);
+            deathTimer = .75f;
         }
     }
 

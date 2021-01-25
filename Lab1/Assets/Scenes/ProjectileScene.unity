@@ -627,7 +627,7 @@ SpriteRenderer:
   m_Size: {x: 0.33, y: 0.45}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1277108607
@@ -698,7 +698,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edcdf720a2ad4a44b84930c5278f1661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  m_moveSpeed: 5
+  m_movement: 0
   shot: {fileID: 7585287631262194888, guid: 31137d213ab53784e89e9301353fe6f1, type: 3}
   shotSpawn: {fileID: 1798088266}
 --- !u!61 &1401043790
