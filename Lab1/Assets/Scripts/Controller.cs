@@ -4,17 +4,6 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
-    //This is the playerAttack code
-    private float timebtwAttack;
-    public float startTimeBtwAttack;
-
-    public Transform attackPos;
-    public LayerMask whatIsEnemy;
-    public Vector2 attackRange;
-    public int damage; // Not really necessary for normal enemies but some big enemies or bosses could take multiple hits!
-
-    //End of playerAttack Code
-
     // Start of movement Code
     public float m_moveSpeed;
     private float moveAmountHorizontal;
@@ -24,7 +13,7 @@ public class Controller : MonoBehaviour
 
     // End of movement code
 
-
+    PlayerAttack m_playAttack;
     private bool isGrounded;
     private float knockPower;
     private int playerHealth;
@@ -63,6 +52,7 @@ public class Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
 
         if (!damaged)
         {
@@ -72,7 +62,7 @@ public class Controller : MonoBehaviour
 
         if(m_movement < 0f)
         {
-            m_facingRight = false;
+            m_facingRight = false; 
         }
         else 
         {
@@ -197,11 +187,7 @@ public class Controller : MonoBehaviour
         readyToFire = false;
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawCube(attackPos.position, attackRange);
-    }
+   
 
 }
 

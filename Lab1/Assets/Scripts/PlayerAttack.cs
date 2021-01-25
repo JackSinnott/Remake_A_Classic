@@ -13,6 +13,8 @@ public class PlayerAttack : MonoBehaviour
     public Vector2 attackRange;
     public int damage; // Not really necessary for normal enemies but some big enemies or bosses could take multiple hits!
 
+    Collider2D[] enemiesToDamage;
+
     public GameObject weapon;
     public Animator Anim;
 
@@ -33,7 +35,7 @@ public class PlayerAttack : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.J))
             {  
                 timebtwAttack = startTimeBtwAttack;
-                Collider2D[] enemiesToDamage = Physics2D.OverlapBoxAll(attackPos.position, attackRange, whatIsEnemy);
+                enemiesToDamage = Physics2D.OverlapBoxAll(attackPos.position, attackRange, whatIsEnemy);
                 Anim.SetTrigger("Attack");
                 for (int i = 0; i < enemiesToDamage.Length; i++)
                 {

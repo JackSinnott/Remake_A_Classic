@@ -8,11 +8,13 @@ public class EnemyCollision : MonoBehaviour
     private ItemDrop getItem;
 
     public Animator Anim;
+    private float deathTimer;
 
     // Start is called before the first frame update
     void Start()
     {
         getItem = GetComponent<ItemDrop>();
+        
     }
 
     private void Update()
@@ -49,9 +51,17 @@ public class EnemyCollision : MonoBehaviour
     {
         Anim.SetBool("IsDead", true);
         Debug.Log("EnemyDied");
-
+        deathTimer = .75f;
         this.enabled = false;
         GetComponent<Collider2D>().enabled = false;
 
+        deathTimer -= Time.deltaTime;
+
+        if (deathTimer <= 0f)
+        {
+            Destroy(this.gameObject);
+        }
     }
+
+    
 }
