@@ -8,14 +8,22 @@ public class Controller : MonoBehaviour
     // Start of movement Code
     public float m_moveSpeed;
     private float moveAmountHorizontal;
-    private float jumpPower;
     public float m_movement;
     bool m_facingRight = true;
 
     // End of movement code
+
+    // Start of jump cpde
+    PlayerJumping playerJump;
+    //private bool isGrounded;  removed as jump related
+
+
+
     Health playerHealth;
-    private bool isGrounded;
+
+   
     private float knockPower;
+
     bool damaged;
     public GameObject shot; 
     GameObject fireball;
@@ -25,6 +33,7 @@ public class Controller : MonoBehaviour
     private bool readyToFire;
     private float nextFire; // when ready to shoot again
     bool hit = false;
+
     private Animator Anim;
     private SpriteRenderer spriteRend;
     private Rigidbody2D playerRGBD;
@@ -36,12 +45,12 @@ public class Controller : MonoBehaviour
         playerRGBD = this.GetComponent<Rigidbody2D>();
         Anim = this.GetComponent<Animator>();
         playerHealth = GetComponent<Health>();
+        playerJump = GetComponent<PlayerJumping>();
     }
 
     void Start()
     {
         damaged = false;
-        jumpPower = 5.0f;
         knockPower = 5.0f;
         speedFire = 8.0f;
         fireRate = 2.0f;
@@ -50,14 +59,14 @@ public class Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
 
         if (!damaged)
         {
             m_movement = Input.GetAxis("Horizontal");            
         }
-        Anim.SetFloat("Speed", Mathf.Abs(m_movement));
 
+        Anim.SetFloat("Speed", Mathf.Abs(m_movement));
+        Debug.Log("Damaged state: " + damaged);
         if(m_movement < 0f)
         {
             m_facingRight = false; 
@@ -93,14 +102,16 @@ public class Controller : MonoBehaviour
     private void FixedUpdate()
     {
         moveCharacter(m_movement);
-        Jump();
+        //Jump();
+        playerJump.Jump();
+       
 
-        playerRGBD.velocity = new Vector2(moveAmountHorizontal, playerRGBD.velocity.y);
         if(hit)
         {
             playerRGBD.AddForce(Vector2.left * knockPower, ForceMode2D.Impulse); // change to whatever the speed is.
             hit = false;
         }
+        playerRGBD.velocity = new Vector2(moveAmountHorizontal, playerRGBD.velocity.y);
     }
 
     void moveCharacter(float m_dir)
@@ -108,34 +119,15 @@ public class Controller : MonoBehaviour
         moveAmountHorizontal = m_dir * m_moveSpeed;
     }
 
-    void Jump()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            Anim.SetBool("IsJumping", true);
-            isGrounded = false;
-            float verticalCheck = this.transform.position.y; // Used to check if our y value is growing or shrinking
-            float yVal = verticalCheck;
+    
 
-            playerRGBD.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);                    
-        }    
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = true;
-            Anim.SetBool("IsJumping", false);
-        }
-    }
+   
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
             hit = true;
-            damaged = true;
             playerHealth.takeDamage(1);
             FindObjectOfType<AudioManager>().play("PlayerHit_Enemy");
             Debug.Log("You have collided");
@@ -143,6 +135,7 @@ public class Controller : MonoBehaviour
         }
         else
         {
+            hit = false;
             damaged = false;
         }
 
@@ -167,15 +160,19 @@ public class Controller : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("FireBall"))
         {
-            
+            hit = true;
+            damaged = true;
             Destroy(collider.gameObject);
             playerHealth.takeDamage(1);
             FindObjectOfType<AudioManager>().play("PlayerHit_Bullet");
             Debug.Log("You have collided with FireBall");
            
         }
-
-        
+        else
+        {
+            damaged = false;
+            hit = false;
+        }
     }
 
     void Fire()
