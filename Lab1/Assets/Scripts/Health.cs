@@ -12,6 +12,11 @@ public class Health : MonoBehaviour
     public Sprite fullHeart;
     public Sprite emptyHeart;
 
+    GameState Data;
+    private void Start()
+    {
+        Data = new GameState { event_name = "Health", data = health };
+    }
     private void Update()
     {
 
@@ -50,6 +55,13 @@ public class Health : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.O))
         {
             health -= 1;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            string jsonData = JsonUtility.ToJson(Data);
+            StartCoroutine(APIWebCall.PostMethod(jsonData));
+            Debug.Log("Json data: " + jsonData);
         }
     }
 

@@ -146,6 +146,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Anim: {fileID: 5756007069349398564}
+  playerHealth: {fileID: 5156611845660624110, guid: 836e61e8aa8bce8439a28e3e67ca6a5f,
+    type: 3}
 --- !u!114 &8031520960457939798
 MonoBehaviour:
   m_ObjectHideFlags: 0
