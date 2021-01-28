@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D playerRGBD;
     private SpriteRenderer spriteRend;
 
-    GameState Data;
     private void Awake()
     {
         spriteRend = this.GetComponent<SpriteRenderer>();

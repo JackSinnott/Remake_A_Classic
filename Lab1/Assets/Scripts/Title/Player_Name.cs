@@ -2,29 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player_Name : MonoBehaviour
 {
-    public string playerName;
-    public string saveName;
+    public InputField playerName;
 
-    public Text inputText;
-    public Text loadedName;
-
-    private void Update()
+    public void Playgame()
     {
-        playerName = PlayerPrefs.GetString("Name", "none");
-        loadedName.text = playerName;
+        Debug.Log("Player name is: " + playerName.text);
+
+        DataToSend.playerNameStr = playerName.text;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    public void SetName()
-    {
-        saveName = inputText.text;
-        PlayerPrefs.SetString("name", saveName);
-    }
 
-    public string GetName()
-    {
-        return PlayerPrefs.GetString(saveName);
-    }
 }

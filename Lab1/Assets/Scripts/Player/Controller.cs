@@ -7,7 +7,7 @@ public class Controller : MonoBehaviour
 {
     PlayerJumping playerJump;
     Health playerHealth;
-    Player_Name playerName;
+    
    
     //private float knockPower;
 
@@ -30,10 +30,7 @@ public class Controller : MonoBehaviour
         Anim = this.GetComponent<Animator>();
         playerHealth = GetComponent<Health>();
         playerJump = GetComponent<PlayerJumping>();
-
-        System.DateTime temp = System.DateTime.Now;
-        string foo = temp.ToString();
-        Data = new GameState { version = "Castlevania_Developer_Build", timestamp = foo, user_id = "" };
+       
     }
 
     void Start()
@@ -60,14 +57,6 @@ public class Controller : MonoBehaviour
 
         checkStatus();
         
-        if(Input.GetKeyDown(KeyCode.Z))
-        {
-            string jsonData = JsonUtility.ToJson(Data);
-            StartCoroutine(APIWebCall.PostMethod(jsonData));
-            Debug.Log("Json data: " + jsonData);
-        }
-        
-        
     }
 
     private void FixedUpdate()
@@ -75,7 +64,6 @@ public class Controller : MonoBehaviour
        
         playerJump.Jump();
        
-        
     }
 
     void Fire()
