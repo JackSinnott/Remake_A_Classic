@@ -4,25 +4,18 @@ using UnityEngine;
 
 public class EnemyCollision : MonoBehaviour
 {
-    private int health;
-    private float deathTimer;
-    //private int damageDealt;
-
+    int health = 1;
     private ItemDrop getItem;
+
     public Animator Anim;
-    //public Health playerHealth;
-    
+    private float deathTimer;
 
     // Start is called before the first frame update
     void Start()
     {
         getItem = GetComponent<ItemDrop>();
         deathTimer = .75f;
-        health = 1;
-        //damageDealt = 1;
 
-       //playerHealth = GameObject.FindWithTag("Player").GetComponent<Health>();
-        
     }
 
     private void Update()
@@ -43,11 +36,6 @@ public class EnemyCollision : MonoBehaviour
                 getItem.DropItem();
                 Debug.Log("Dropped an Item " + getItem);
             }
-        }
-
-        if (collider.CompareTag("Player"))
-        {
-            //playerHealth.takeDamage(damageDealt);
         }
 
     }

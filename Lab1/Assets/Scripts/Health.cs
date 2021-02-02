@@ -12,11 +12,6 @@ public class Health : MonoBehaviour
     public Sprite fullHeart;
     public Sprite emptyHeart;
 
-    
-    private void Start()
-    {
-        
-    }
     private void Update()
     {
 
@@ -56,8 +51,6 @@ public class Health : MonoBehaviour
         {
             health -= 1;
         }
-
-       
     }
 
     public void takeDamage(int damage)
