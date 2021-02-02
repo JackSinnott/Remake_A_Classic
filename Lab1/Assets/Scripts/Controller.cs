@@ -9,13 +9,11 @@ public class Controller : MonoBehaviour
     public float m_moveSpeed;
     private float moveAmountHorizontal;
     public float m_movement;
-    bool m_facingRight = true;
 
     // End of movement code
 
     // Start of jump cpde
     PlayerJumping playerJump;
-
     Health playerHealth;
 
    
@@ -47,6 +45,7 @@ public class Controller : MonoBehaviour
 
     void Start()
     {
+        PlayerPrefs.SetInt("facingRight", 1);
         damaged = false;
         knockPower = 5.0f;
         speedFire = 8.0f;
@@ -66,14 +65,15 @@ public class Controller : MonoBehaviour
         Debug.Log("Damaged state: " + damaged);
         if(m_movement < 0f)
         {
-            m_facingRight = false; 
+            PlayerPrefs.SetInt("facingRight", 0); 
+
         }
         else 
         {
-            m_facingRight = true;
+            PlayerPrefs.SetInt("facingRight", 1);
         }
 
-        if (m_facingRight)
+        if (PlayerPrefs.GetInt("facingRight") == 1)
         {
             spriteRend.flipX = false;
            
@@ -116,9 +116,6 @@ public class Controller : MonoBehaviour
         moveAmountHorizontal = m_dir * m_moveSpeed;
     }
 
-    
-
-   
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
