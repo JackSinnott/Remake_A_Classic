@@ -15,9 +15,6 @@ public class Controller : MonoBehaviour
 
     // Start of jump cpde
     PlayerJumping playerJump;
-    //private bool isGrounded;  removed as jump related
-
-
 
     Health playerHealth;
 
@@ -168,7 +165,12 @@ public class Controller : MonoBehaviour
             Debug.Log("You have collided with FireBall");
            
         }
-        else
+     
+    }
+
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.gameObject.CompareTag("FireBall"))
         {
             damaged = false;
             hit = false;

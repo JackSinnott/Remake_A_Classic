@@ -8,7 +8,7 @@ public class PlayerAttack : MonoBehaviour
     private float timebtwAttack;
     public float startTimeBtwAttack;
 
-    public Transform attackPos;
+    public Transform attackRightPos;
     public LayerMask whatIsEnemy;
     public float attackRange;
     public int damage; // Not really necessary for normal enemies but some big enemies or bosses could take multiple hits!
@@ -26,7 +26,7 @@ public class PlayerAttack : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.J))
             {  
                 timebtwAttack = startTimeBtwAttack;
-                enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemy);
+                enemiesToDamage = Physics2D.OverlapCircleAll(attackRightPos.position, attackRange, whatIsEnemy);
                 Anim.SetTrigger("Attack");
                 for (int i = 0; i < enemiesToDamage.Length; i++)
                 {
@@ -45,10 +45,10 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        if (attackPos == null)
+        if (attackRightPos == null)
             return;
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPos.position, attackRange);
+        Gizmos.DrawWireSphere(attackRightPos.position, attackRange);
     }
 }
