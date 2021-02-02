@@ -16,14 +16,19 @@ public class PlayerAttack : MonoBehaviour
 
     Collider2D[] enemiesToDamage;
     public Animator Anim;
+    Controller direction; // we are only concerned with the player direction part of the controller
 
 
+    private void Awake()
+    {
+        direction = GetComponent<Controller>();
+    }
     private void Update()
     {
         // If so swing away
         if (timebtwAttack <= 0)
         {
-            if(Input.GetKeyDown(KeyCode.J) && PlayerPrefs.GetInt("faingRight") == 1)
+            if(Input.GetKeyDown(KeyCode.J) && direction.getDirection())
             {  
                 timebtwAttack = startTimeBtwAttack;
                 enemiesToDamage = Physics2D.OverlapCircleAll(attackRightPos.position, attackRange, whatIsEnemy);
@@ -33,7 +38,7 @@ public class PlayerAttack : MonoBehaviour
                     enemiesToDamage[i].GetComponent<EnemyCollision>().TakeDamage(damage);
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.J) && PlayerPrefs.GetInt("faingRight") == 0)
+            else if (Input.GetKeyDown(KeyCode.J) && !direction.getDirection())
             {
                 timebtwAttack = startTimeBtwAttack;
                 enemiesToDamage = Physics2D.OverlapCircleAll(attackLeftPos.position, attackRange, whatIsEnemy);

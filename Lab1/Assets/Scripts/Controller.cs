@@ -16,7 +16,7 @@ public class Controller : MonoBehaviour
     PlayerJumping playerJump;
     Health playerHealth;
 
-   
+    bool m_facingRight = true;
     private float knockPower;
 
     bool damaged;
@@ -45,7 +45,6 @@ public class Controller : MonoBehaviour
 
     void Start()
     {
-        PlayerPrefs.SetInt("facingRight", 1);
         damaged = false;
         knockPower = 5.0f;
         speedFire = 8.0f;
@@ -65,15 +64,14 @@ public class Controller : MonoBehaviour
         Debug.Log("Damaged state: " + damaged);
         if(m_movement < 0f)
         {
-            PlayerPrefs.SetInt("facingRight", 0); 
-
+            m_facingRight = false;
         }
         else 
         {
-            PlayerPrefs.SetInt("facingRight", 1);
+            m_facingRight = true;
         }
 
-        if (PlayerPrefs.GetInt("facingRight") == 1)
+        if (m_facingRight)
         {
             spriteRend.flipX = false;
            
@@ -114,6 +112,11 @@ public class Controller : MonoBehaviour
     void moveCharacter(float m_dir)
     {
         moveAmountHorizontal = m_dir * m_moveSpeed;
+    }
+
+    public bool getDirection()
+    {
+        return m_facingRight;
     }
 
     

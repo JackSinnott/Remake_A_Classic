@@ -21,7 +21,7 @@ public class PlayerJumping : MonoBehaviour
 
     public void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.M) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             playerRGBD.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
         }
