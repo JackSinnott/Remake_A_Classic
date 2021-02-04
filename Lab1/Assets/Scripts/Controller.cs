@@ -32,6 +32,7 @@ public class Controller : MonoBehaviour
     private Animator Anim;
     private SpriteRenderer spriteRend;
     private Rigidbody2D playerRGBD;
+    private AudioManager audioManager;
     float timer = 2f;
 
     public void Awake()
@@ -41,6 +42,7 @@ public class Controller : MonoBehaviour
         Anim = this.GetComponent<Animator>();
         playerHealth = GetComponent<Health>();
         playerJump = GetComponent<PlayerJumping>();
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
 
     void Start()
@@ -126,7 +128,7 @@ public class Controller : MonoBehaviour
         {
             hit = true;
             playerHealth.takeDamage(1);
-            FindObjectOfType<AudioManager>().play("PlayerHit_Enemy");
+            audioManager.Play("PlayerHit_Enemy");
             Debug.Log("You have collided");
             
         }
@@ -161,7 +163,7 @@ public class Controller : MonoBehaviour
             damaged = true;
             Destroy(collider.gameObject);
             playerHealth.takeDamage(1);
-            FindObjectOfType<AudioManager>().play("PlayerHit_Bullet");
+            audioManager.Play("PlayerHit_Bullet");
             Debug.Log("You have collided with FireBall");
            
         }

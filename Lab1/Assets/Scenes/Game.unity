@@ -1612,7 +1612,7 @@ GameObject:
   - component: {fileID: 1339078320}
   m_Layer: 0
   m_Name: AudioManager
-  m_TagString: Untagged
+  m_TagString: AudioManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1630,30 +1630,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - soundName: Theme
+  - name: Theme
     clip: {fileID: 8300000, guid: 64b2e47c1107a5f4fa0adb98bac53910, type: 3}
     volume: 0.5
     pitch: 1
+    loop: 1
     source: {fileID: 0}
-  - soundName: PlayerHit_Bullet
+  - name: PlayerHit_Bullet
     clip: {fileID: 8300000, guid: 8c0b252fdc08272428b04f32a0fb2e18, type: 3}
     volume: 0.5
     pitch: 1
+    loop: 0
     source: {fileID: 0}
-  - soundName: PlayerHit_Enemy
+  - name: PlayerHit_Enemy
     clip: {fileID: 8300000, guid: 6e555a79602eab444a32cfb2cec8bf87, type: 3}
     volume: 0.5
     pitch: 1
+    loop: 0
     source: {fileID: 0}
-  - soundName: Shooting
+  - name: Shooting
     clip: {fileID: 8300000, guid: e5e3f12de81b48242a4207d9860823ba, type: 3}
     volume: 0.5
     pitch: 1
-    source: {fileID: 0}
-  - soundName: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+    loop: 0
     source: {fileID: 0}
 --- !u!4 &1339078321
 Transform:

@@ -18,6 +18,7 @@ TagManager:
   - Projectile
   - Potion
   - Item
+  - AudioManager
   layers:
   - Default
   - TransparentFX
