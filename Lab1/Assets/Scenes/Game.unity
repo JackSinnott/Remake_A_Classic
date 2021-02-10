@@ -1180,10 +1180,10 @@ GameObject:
   - component: {fileID: 1016989133}
   - component: {fileID: 1016989136}
   - component: {fileID: 1016989135}
-  - component: {fileID: 1016989137}
+  - component: {fileID: 1016989141}
   - component: {fileID: 1016989138}
   - component: {fileID: 1016989140}
-  - component: {fileID: 1016989141}
+  - component: {fileID: 1016989137}
   - component: {fileID: 1016989139}
   m_Layer: 0
   m_Name: Player
@@ -1315,13 +1315,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1016989132}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edcdf720a2ad4a44b84930c5278f1661, type: 3}
+  m_Script: {fileID: 11500000, guid: aef464d09985852478ba20cf45a74b8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_moveSpeed: 5
-  m_movement: 0
-  shot: {fileID: 8495197207601849099, guid: f033219ccceebff48b2046b10eed3c33, type: 3}
-  shotSpawn: {fileID: 210426995}
+  isGrounded: 0
+  jumpPower: 3
+  Anim: {fileID: 1016989139}
 --- !u!114 &1016989138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1331,7 +1330,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1016989132}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 800b74f00404122488ba9f66d6216bf1, type: 3}
+  m_Script: {fileID: 11500000, guid: 836952df7ac0ece4d8e0441eb9bec27b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   startTimeBtwAttack: 1
@@ -1396,12 +1395,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1016989132}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b51e4cfd0141f7a4783870e1aaa2bd75, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f6c34acfbb74744bbb03406ae9cbdb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGrounded: 0
-  jumpPower: 3
-  Anim: {fileID: 1016989139}
+  m_moveSpeed: 5
+  m_movement: 0
+  shot: {fileID: 8495197207601849099, guid: f033219ccceebff48b2046b10eed3c33, type: 3}
+  shotSpawn: {fileID: 210426995}
 --- !u!1 &1230262142
 GameObject:
   m_ObjectHideFlags: 0
@@ -1590,7 +1590,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1286956327}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93dc6ab082c25ca41b53a643760bebc2, type: 3}
+  m_Script: {fileID: 11500000, guid: 6471450279c228e4ba85fa99f8ee6e89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_enemies: {fileID: 8031520960457939803, guid: 274f47956f0e6074ebed3a722e0bb93a,

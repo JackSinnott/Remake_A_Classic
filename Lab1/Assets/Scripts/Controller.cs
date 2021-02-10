@@ -206,7 +206,7 @@ public class Controller : MonoBehaviour
 
             if (timer <= 0)
             {
-                //SceneManager.LoadScene("Game");
+                SceneManager.LoadScene("Game");
                 Destroy(this.gameObject);
             }
         }

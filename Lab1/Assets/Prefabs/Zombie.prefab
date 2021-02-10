@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5756007069349398564}
   m_Layer: 9
   m_Name: Zombie
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8031520960457939803}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97674c02aecfbad46bada190f7b9320a, type: 3}
+  m_Script: {fileID: 11500000, guid: e9a4f7830a0323a46a134a5dad71a9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Anim: {fileID: 5756007069349398564}
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8031520960457939803}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32375ee1c0818d04cae13db3c1674545, type: 3}
+  m_Script: {fileID: 11500000, guid: a17958b06e091a44e8ac19726ce3296b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!95 &5756007069349398564
