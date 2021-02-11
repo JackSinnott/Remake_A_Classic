@@ -10,6 +10,7 @@ public class Controller : MonoBehaviour
     private float moveAmountHorizontal;
     public float m_movement;
 
+
     // End of movement code
 
     // Start of jump cpde
@@ -66,7 +67,7 @@ public class Controller : MonoBehaviour
         string seconds = (m_timePlayed % 60).ToString("00");
 
 
-        Debug.Log("Time elapsed: " + minutes + ":" + seconds);
+/*        Debug.Log("Time elapsed: " + minutes + ":" + seconds);*/
 
         if (!damaged)
         {

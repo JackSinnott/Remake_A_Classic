@@ -8,12 +8,13 @@ public class DataToSend : MonoBehaviour
 
     Health playerHealth;
     PlayerAttack m_playerKills;
-    Controller m_elpaseTime;
+    PlayerJumping m_playerData;
 
 
     int healthCheck;
     int m_killCheck;
-    int m_timeCheck;
+    int m_jumpCheck;
+    bool m_once;
 
     GameState healthData;
 
@@ -21,7 +22,8 @@ public class DataToSend : MonoBehaviour
     {
         playerHealth = GetComponent<Health>();
         m_playerKills = GetComponent<PlayerAttack>();
-        m_elpaseTime = GetComponent<Controller>();
+        m_playerData = GetComponent<PlayerJumping>();
+        m_once = false;
     }
 
     private void Start()
@@ -33,7 +35,8 @@ public class DataToSend : MonoBehaviour
 
         healthCheck = playerHealth.getHealth();
         m_killCheck = m_playerKills.getKills();
-        m_timeCheck = m_elpaseTime.getTime();
+        m_jumpCheck = m_playerData.getJumpData();
+        /*m_timeCheck = m_elpaseTime.getTime();*/
 
         healthData = new GameState
         {
@@ -43,7 +46,8 @@ public class DataToSend : MonoBehaviour
             event_name = "Health",
             data = playerHealth.getHealth(),
             killData = m_playerKills.getKills(),
-            timePlayedData = m_timeCheck
+            jumpData = m_playerData.getJumpData()
+            /*timePlayedData = m_timeCheck*/
         };
     }
 
@@ -56,15 +60,27 @@ public class DataToSend : MonoBehaviour
             healthData.data = (int)healthCheck;
             m_killCheck = m_playerKills.getKills();
             healthData.killData = (int)m_killCheck;
-            m_timeCheck = m_elpaseTime.getTime();
-            healthData.timePlayedData = (int)m_timeCheck;
+            m_jumpCheck = m_playerData.getJumpData();
+            healthData.jumpData = (int)m_jumpCheck;
+            /*m_timeCheck = m_elpaseTime.getTime();
+            healthData.timePlayedData = (int)m_timeCheck;*/
         }
 
-        if (playerHealth.getHealth() < 1)
-        { 
+        if (playerHealth.isDead() || Input.GetKeyDown(KeyCode.Z))
+        {
+            sentData();
+        }
+    }
+
+    void sentData()
+    {
+        if (!m_once)
+        {
             string jsonData;
             jsonData = JsonUtility.ToJson(healthData);
             StartCoroutine(APIWebCall.PostMethod(jsonData));
+            m_once = true;
         }
+
     }
 }

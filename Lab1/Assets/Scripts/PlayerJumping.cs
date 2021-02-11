@@ -8,13 +8,14 @@ public class PlayerJumping : MonoBehaviour
     public float jumpPower;
     public Animator Anim;
     private Rigidbody2D playerRGBD;
+    public int m_jump;
 
     private void Awake()
     {
         playerRGBD = GetComponent<Rigidbody2D>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         Jump();
     }
@@ -23,6 +24,8 @@ public class PlayerJumping : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
+            m_jump++;
+            Debug.Log("number of jump: " + m_jump);
             playerRGBD.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
         }
     }
@@ -53,6 +56,11 @@ public class PlayerJumping : MonoBehaviour
             isGrounded = false;
             Anim.SetBool("IsJumping", true);
         }
+    }
+
+    public int getJumpData()
+    {
+        return m_jump;
     }
 
 }

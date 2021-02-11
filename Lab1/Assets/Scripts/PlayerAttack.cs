@@ -13,6 +13,7 @@ public class PlayerAttack : MonoBehaviour
     public LayerMask whatIsEnemy;
     public float attackRange;
     public int damage; // Not really necessary for normal enemies but some big enemies or bosses could take multiple hits!
+    bool m_bossDeath;
 
     Collider2D[] enemiesToDamage;
     public Animator Anim;
@@ -23,6 +24,7 @@ public class PlayerAttack : MonoBehaviour
     {
         m_playerKill = 0;
         direction = GetComponent<Controller>();
+        m_bossDeath = false;
     }
     private void Update()
     {
@@ -40,7 +42,11 @@ public class PlayerAttack : MonoBehaviour
                     if(enemiesToDamage[i].tag == "Ghost")
                     {
                         m_playerKill++;
-                        Debug.Log("Its a ghost " + m_playerKill);
+                    }
+                    if (enemiesToDamage[i].tag == "Enemy")
+                    {
+                        m_playerKill++;
+                        m_bossDeath = true;
                     }
                 }
             }
@@ -81,6 +87,11 @@ public class PlayerAttack : MonoBehaviour
     public int getKills()
     {
         return m_playerKill;
+    }
+
+    public bool checkBoss()
+    {
+        return m_bossDeath;
     }
 
 }

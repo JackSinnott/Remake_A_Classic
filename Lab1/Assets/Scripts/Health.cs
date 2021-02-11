@@ -11,6 +11,7 @@ public class Health : MonoBehaviour
     public Image[] hearts;
     public Sprite fullHeart;
     public Sprite emptyHeart;
+    bool m_dead;
 
     private void Update()
     {
@@ -67,4 +68,18 @@ public class Health : MonoBehaviour
     {
         return health;
     }
+
+    public bool isDead()
+    {
+        if(health <= 0)
+        {
+            return m_dead = true;
+        }
+        else
+        {
+            return m_dead = false;
+        }
+
+    }
+
 }
