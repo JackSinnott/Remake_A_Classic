@@ -40,7 +40,7 @@ public class PlayerAttack : MonoBehaviour
                     if(enemiesToDamage[i].tag == "Ghost")
                     {
                         m_playerKill++;
-/*                        Debug.Log("Its a ghost");*/
+                        Debug.Log("Its a ghost " + m_playerKill);
                     }
                 }
             }

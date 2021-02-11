@@ -60,7 +60,9 @@ public class Controller : MonoBehaviour
     void Update()
     {
 
-        m_timePlayed += Time.time;
+        m_timePlayed += Time.fixedDeltaTime;
+
+        Debug.Log("Time elapsed: " + m_timePlayed);
 
         if (!damaged)
         {

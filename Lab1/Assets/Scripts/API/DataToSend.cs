@@ -57,7 +57,7 @@ public class DataToSend : MonoBehaviour
             m_killCheck = m_playerKills.getKills();
             healthData.killData = (int)m_killCheck;
             m_timeCheck = m_elpaseTime.getTime();
-            healthData.timePlayedData = m_timeCheck;
+            healthData.timePlayedData = (int)m_timeCheck;
         }
 
         if (playerHealth.getHealth() < 1)
