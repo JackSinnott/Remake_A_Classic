@@ -62,7 +62,11 @@ public class Controller : MonoBehaviour
 
         m_timePlayed += Time.fixedDeltaTime;
 
-        Debug.Log("Time elapsed: " + m_timePlayed);
+        string minutes = Mathf.Floor(m_timePlayed / 60).ToString("00");
+        string seconds = (m_timePlayed % 60).ToString("00");
+
+
+        Debug.Log("Time elapsed: " + minutes + ":" + seconds);
 
         if (!damaged)
         {
