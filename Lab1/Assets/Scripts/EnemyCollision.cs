@@ -43,25 +43,20 @@ public class EnemyCollision : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        Debug.Log("Damage Taken");
-
-        
+/*        Debug.Log("Damage Taken");*/
     }
 
     void Die()
     {
         Anim.SetBool("IsDead", true);
-        Debug.Log("EnemyDied");
-        
+/*        Debug.Log("EnemyDied");*/
         GetComponent<Collider2D>().enabled = false;
-
         deathTimer -= Time.deltaTime;
-
 
         if (deathTimer <= 0f)
         {
             Destroy(this.gameObject);
-            Debug.Log(deathTimer);
+/*            Debug.Log(deathTimer);*/
             deathTimer = 1f;
         }
     }

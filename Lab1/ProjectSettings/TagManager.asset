@@ -4,8 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Background
-  - Enemy
   - LeftWall
   - Ground
   - Boundary
@@ -19,6 +17,7 @@ TagManager:
   - Potion
   - Item
   - AudioManager
+  - Ghost
   layers:
   - Default
   - TransparentFX

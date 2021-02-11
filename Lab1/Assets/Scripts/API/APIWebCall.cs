@@ -34,4 +34,6 @@ public class GameState
     public string user_id;
     public string event_name;
     public int data;
+    public int killData;
+    public int timePlayedData;
 }

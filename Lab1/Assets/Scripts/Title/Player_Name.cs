@@ -10,7 +10,7 @@ public class Player_Name : MonoBehaviour
 
     public void Playgame()
     {
-        Debug.Log("Player name is: " + playerName.text);
+/*        Debug.Log("Player name is: " + playerName.text);*/
 
         DataToSend.playerNameStr = playerName.text;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);

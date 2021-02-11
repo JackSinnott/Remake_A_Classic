@@ -7,7 +7,7 @@ public class PlayerAttack : MonoBehaviour
 {
     private float timebtwAttack;
     public float startTimeBtwAttack;
-
+    private int m_playerKill;
     public Transform attackRightPos;
     public Transform attackLeftPos;
     public LayerMask whatIsEnemy;
@@ -21,6 +21,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Awake()
     {
+        m_playerKill = 0;
         direction = GetComponent<Controller>();
     }
     private void Update()
@@ -36,6 +37,11 @@ public class PlayerAttack : MonoBehaviour
                 for (int i = 0; i < enemiesToDamage.Length; i++)
                 {
                     enemiesToDamage[i].GetComponent<EnemyCollision>().TakeDamage(damage);
+                    if(enemiesToDamage[i].tag == "Ghost")
+                    {
+                        m_playerKill++;
+/*                        Debug.Log("Its a ghost");*/
+                    }
                 }
             }
             else if (Input.GetKeyDown(KeyCode.J) && !direction.getDirection())
@@ -52,7 +58,6 @@ public class PlayerAttack : MonoBehaviour
         else
         {
             timebtwAttack -= Time.deltaTime;
-            
         }       
 
     }
@@ -72,4 +77,10 @@ public class PlayerAttack : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackLeftPos.position, attackRange);
     }
+
+    public int getKills()
+    {
+        return m_playerKill;
+    }
+
 }

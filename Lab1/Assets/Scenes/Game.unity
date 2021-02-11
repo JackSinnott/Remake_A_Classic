@@ -1185,6 +1185,7 @@ GameObject:
   - component: {fileID: 1016989140}
   - component: {fileID: 1016989137}
   - component: {fileID: 1016989139}
+  - component: {fileID: 1016989142}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1251,7 +1252,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1016989132}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.31, y: 1.15, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children:
   - {fileID: 210426995}
@@ -1402,6 +1403,18 @@ MonoBehaviour:
   m_movement: 0
   shot: {fileID: 8495197207601849099, guid: f033219ccceebff48b2046b10eed3c33, type: 3}
   shotSpawn: {fileID: 210426995}
+--- !u!114 &1016989142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016989132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07067fdf75de10e44ae992329853c7de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1230262142
 GameObject:
   m_ObjectHideFlags: 0
@@ -1575,7 +1588,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1286956327}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.490238, y: 0, z: -1.2173663}
+  m_LocalPosition: {x: 32.44, y: 0, z: -1.2173663}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1595,9 +1608,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enemies: {fileID: 8031520960457939803, guid: 274f47956f0e6074ebed3a722e0bb93a,
     type: 3}
-  m_spawnValues: {x: 0, y: 0, z: 0}
+  m_spawnValues: {x: 32.44, y: 0, z: 0}
   m_hazardCount: 12
-  m_spawnTimer: 1.5
+  m_spawnTimer: 6
   m_startWait: 2
   m_waveWait: 10
 --- !u!1 &1339078319

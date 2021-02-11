@@ -13,7 +13,7 @@ public class ItemDrop : MonoBehaviour
     private void Start()
     {
         EnemyPosition = GetComponent<Transform>();
-        Debug.Log(itemList);
+/*        Debug.Log(itemList);*/
     }
 
     public void DropItem()

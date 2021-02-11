@@ -29,6 +29,8 @@ public class Controller : MonoBehaviour
     private float nextFire; // when ready to shoot again
     bool hit = false;
 
+    float m_timePlayed;
+
     private Animator Anim;
     private SpriteRenderer spriteRend;
     private Rigidbody2D playerRGBD;
@@ -43,6 +45,7 @@ public class Controller : MonoBehaviour
         playerHealth = GetComponent<Health>();
         playerJump = GetComponent<PlayerJumping>();
         audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+        m_timePlayed = 0.0f;
     }
 
     void Start()
@@ -57,13 +60,15 @@ public class Controller : MonoBehaviour
     void Update()
     {
 
+        m_timePlayed += Time.time;
+
         if (!damaged)
         {
             m_movement = Input.GetAxis("Horizontal");            
         }
 
         Anim.SetFloat("Speed", Mathf.Abs(m_movement));
-        Debug.Log("Damaged state: " + damaged);
+/*        Debug.Log("Damaged state: " + damaged);*/
         if(m_movement < 0f)
         {
             m_facingRight = false;
@@ -124,13 +129,12 @@ public class Controller : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Ghost") || collision.gameObject.CompareTag("Enemy"))
         {
             hit = true;
             playerHealth.takeDamage(1);
             audioManager.Play("PlayerHit_Enemy");
-            Debug.Log("You have collided");
-            
+/*            Debug.Log("You have collided");*/
         }
         else
         {
@@ -142,7 +146,6 @@ public class Controller : MonoBehaviour
         {
             playerHealth.heal(2);
             Destroy(collision.gameObject);
-            
         } 
 
 
@@ -164,7 +167,7 @@ public class Controller : MonoBehaviour
             Destroy(collider.gameObject);
             playerHealth.takeDamage(1);
             audioManager.Play("PlayerHit_Bullet");
-            Debug.Log("You have collided with FireBall");
+/*            Debug.Log("You have collided with FireBall");*/
            
         }
      
@@ -206,11 +209,20 @@ public class Controller : MonoBehaviour
 
             if (timer <= 0)
             {
+
                 SceneManager.LoadScene("Game");
                 Destroy(this.gameObject);
             }
         }
     }
+    public int getTime()
+    {
+
+        float minutes = Mathf.FloorToInt(m_timePlayed / 60);
+        float seconds = Mathf.FloorToInt(m_timePlayed % 60);
+        return (int)minutes;
+    }
+
 
 }
 

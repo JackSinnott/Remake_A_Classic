@@ -18,12 +18,6 @@ public class EnemyController : MonoBehaviour
         StartCoroutine(SpawnWaves());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     IEnumerator SpawnWaves()
     {
         yield return new WaitForSeconds(m_startWait);
@@ -31,7 +25,7 @@ public class EnemyController : MonoBehaviour
         {
             for (int i = 0; i < m_hazardCount; i++)
             {
-                Vector3 m_spawnPosition = new Vector3(Random.Range(m_spawnValues.x, m_spawnValues.x + 30.0f), m_spawnValues.y, m_spawnValues.z);
+                Vector3 m_spawnPosition = new Vector3(Random.Range(m_spawnValues.x, m_spawnValues.x + 5.0f), m_spawnValues.y, m_spawnValues.z);
                 Quaternion m_spawnRotation = Quaternion.identity;
                 GameObject clone;
                 clone = Instantiate(m_enemies, m_spawnPosition, m_spawnRotation);
