@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     public float m_fireRate;
     private bool m_readyToFire;
     private float m_nextFire;
+    private Vector2 m_dir;
+    private Vector2 m_playerScale;
 
     void Start()
     {
@@ -51,11 +53,23 @@ public class PlayerController : MonoBehaviour
         m_movement = Input.GetAxis("Horizontal");
         m_rb.velocity = new Vector2(m_movement * m_speed, m_rb.velocity.y);
 
+        m_playerScale = transform.localScale;
+        if (Input.GetAxis("Horizontal") < 0)
+        {
+            m_dir.x = -1.0f;
+            m_playerScale.x = -0.2f;
+        }
+        if (Input.GetAxis("Horizontal") > 0)
+        {
+            m_dir.x = 1.0f;
+            m_playerScale.x = 0.2f;
+        }
         if (Input.GetKeyDown(KeyCode.Space) && m_grounded)
         {
             m_rb.AddForce(new Vector2(0, m_jumpPower), ForceMode2D.Impulse);
             m_grounded = false; // player has jumped
         }
+        transform.localScale = m_playerScale;
     }
 
     /// <summary>
@@ -65,7 +79,7 @@ public class PlayerController : MonoBehaviour
     {
         GameObject m_projectilefired = Instantiate(m_projectile, m_shotSpawn.position, m_shotSpawn.rotation); // create
         m_nextFire = Time.time + m_fireRate;
-        m_projectilefired.GetComponent<Rigidbody2D>().velocity = m_projectileSpeed * Vector2.right; // bullet is fired
+        m_projectilefired.GetComponent<Rigidbody2D>().velocity = m_projectileSpeed * m_dir; // bullet is fired
         m_readyToFire = false;
 
     }
@@ -77,9 +91,4 @@ public class PlayerController : MonoBehaviour
             /*Anim.SetBool("IsJumping", false);*/
         }
     }
-
-
-
-
-
 }
