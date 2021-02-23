@@ -10,7 +10,9 @@ public class PlayerController : MonoBehaviour
     private float m_movement;
     private Rigidbody2D m_rb;
     // player health
-    private int m_health;
+    Health m_playerHealth;
+    bool m_hit = false;
+    bool m_damaged = false;
 
     //jumping var
     private bool m_grounded;
@@ -25,6 +27,16 @@ public class PlayerController : MonoBehaviour
     private float m_nextFire;
     private Vector2 m_dir;
     private Vector2 m_playerScale;
+    Collider2D[] enemiesToDamage;
+
+    //attack
+    private float m_timeAttack;
+    public float m_swingRate;
+    public Transform m_attackPos;
+    public LayerMask m_whatIsEnemy;
+    public float m_attackRange;
+    public int m_damage;
+
 
     private Animator m_anim;
 
@@ -38,13 +50,25 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         movement();
-        if (Input.GetKeyDown(KeyCode.Mouse0) && m_readyToFire)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && m_readyToFire)
         {
             Fire();
         }
         if (!m_readyToFire && Time.time > m_nextFire) // checks
         {
             m_readyToFire = true;
+        }
+
+        if (m_timeAttack <= 0)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                Attack();
+            }
+        }
+        else
+        {
+            m_timeAttack -= Time.deltaTime;
         }
     }
     /// <summary>
@@ -86,8 +110,19 @@ public class PlayerController : MonoBehaviour
         m_nextFire = Time.time + m_fireRate;
         m_projectilefired.GetComponent<Rigidbody2D>().velocity = m_projectileSpeed * m_dir; // bullet is fired
         m_readyToFire = false;
-
     }
+
+    void Attack()
+    {
+        m_timeAttack = m_swingRate;
+        enemiesToDamage = Physics2D.OverlapCircleAll(m_attackPos.position, m_attackRange, m_whatIsEnemy);
+        m_anim.SetTrigger("Attack");
+        for (int i = 0; i < enemiesToDamage.Length; i++)
+        {
+            enemiesToDamage[i].GetComponent<EnemyCollision>().TakeDamage(m_damage);
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -95,5 +130,39 @@ public class PlayerController : MonoBehaviour
             m_grounded = true; // player is on the ground
             m_anim.SetBool("IsJumping", false);
         }
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            m_hit = true;
+            m_playerHealth.takeDamage(1);
+            Debug.Log("You have collided");
+        }
+        else
+        {
+            m_hit = false;
+            m_damaged = false;
+        }
+
+        if (collision.gameObject.CompareTag("Potion"))
+        {
+            m_playerHealth.heal(2);
+            Destroy(collision.gameObject);
+        }
+
+
+/*        if (collision.gameObject.CompareTag("Item"))
+        {
+            shot.gameObject.GetComponent<SpriteRenderer>().sprite = collision.gameObject.GetComponent<SpriteRenderer>().sprite;
+            Destroy(collision.gameObject);
+        }*/
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (m_attackPos == null)
+            return;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(m_attackPos.position, m_attackRange);
     }
 }
