@@ -153,13 +153,22 @@ public class PlayerController : MonoBehaviour
             m_playerHealth.heal(2);
             Destroy(collision.gameObject);
         }
-
-
         /*if (collision.gameObject.CompareTag("Item"))
         {
             shot.gameObject.GetComponent<SpriteRenderer>().sprite = collision.gameObject.GetComponent<SpriteRenderer>().sprite;
             Destroy(collision.gameObject);
         }*/
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("FireBall"))
+        {
+            m_hit = true;
+            Destroy(collision.gameObject);
+            m_playerHealth.takeDamage(1);
+            Debug.Log("You have collided with FireBall");
+        }
     }
 
     private void OnDrawGizmosSelected()
