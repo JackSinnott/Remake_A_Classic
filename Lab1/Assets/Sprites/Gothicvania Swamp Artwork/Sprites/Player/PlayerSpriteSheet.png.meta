@@ -224,6 +224,15 @@ TextureImporter:
   - first:
       213: -7649378215349769951
     second: PlayerSpriteSheet_73
+  - first:
+      213: 6267570737316994984
+    second: PlayerSpriteSheet_74
+  - first:
+      213: -3798355492793189477
+    second: PlayerSpriteSheet_75
+  - first:
+      213: 6871583103068313928
+    second: PlayerSpriteSheet_76
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1044,7 +1053,7 @@ TextureImporter:
         x: 30
         y: 133
         width: 16
-        height: 40
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1065,10 +1074,10 @@ TextureImporter:
         x: 49
         y: 133
         width: 32
-        height: 40
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 0, z: 8, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -1089,7 +1098,7 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 0, z: 16, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -1110,7 +1119,7 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 0, z: 8, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
