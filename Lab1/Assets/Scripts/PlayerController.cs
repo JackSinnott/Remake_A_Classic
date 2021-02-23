@@ -26,9 +26,11 @@ public class PlayerController : MonoBehaviour
     private Vector2 m_dir;
     private Vector2 m_playerScale;
 
+    private Animator m_anim;
+
     void Start()
     {
-
+        m_anim = this.GetComponent<Animator>();
         m_rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
@@ -52,24 +54,27 @@ public class PlayerController : MonoBehaviour
     {
         m_movement = Input.GetAxis("Horizontal");
         m_rb.velocity = new Vector2(m_movement * m_speed, m_rb.velocity.y);
+        m_anim.SetFloat("Speed", Mathf.Abs(m_movement));
 
         m_playerScale = transform.localScale;
         if (Input.GetAxis("Horizontal") < 0)
         {
             m_dir.x = -1.0f;
-            m_playerScale.x = -0.2f;
+            m_playerScale.x = -5.0f;
         }
         if (Input.GetAxis("Horizontal") > 0)
         {
             m_dir.x = 1.0f;
-            m_playerScale.x = 0.2f;
+            m_playerScale.x = 5.0f;
         }
         if (Input.GetKeyDown(KeyCode.Space) && m_grounded)
         {
             m_rb.AddForce(new Vector2(0, m_jumpPower), ForceMode2D.Impulse);
             m_grounded = false; // player has jumped
+            m_anim.SetBool("IsJumping", true);
         }
         transform.localScale = m_playerScale;
+        m_projectile.transform.localScale = m_playerScale/ 10;
     }
 
     /// <summary>
@@ -88,7 +93,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             m_grounded = true; // player is on the ground
-            /*Anim.SetBool("IsJumping", false);*/
+            m_anim.SetBool("IsJumping", false);
         }
     }
 }
