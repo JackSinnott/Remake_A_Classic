@@ -12,7 +12,9 @@ public class PlayerController : MonoBehaviour
     // player health
     Health m_playerHealth;
     bool m_hit = false;
-    bool m_damaged = false;
+    bool m_isDead = false;
+    private float m_knockPower;
+    private float m_timer;
 
     //jumping var
     private bool m_grounded;
@@ -42,34 +44,42 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        m_knockPower = 2.0f;
         m_anim = this.GetComponent<Animator>();
         m_rb = gameObject.GetComponent<Rigidbody2D>();
+        m_playerHealth = GetComponent<Health>();
+        m_timer = 5.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        movement();
-        if (Input.GetKeyDown(KeyCode.Mouse1) && m_readyToFire)
+        if(!m_isDead)
         {
-            Fire();
-        }
-        if (!m_readyToFire && Time.time > m_nextFire) // checks
-        {
-            m_readyToFire = true;
-        }
-
-        if (m_timeAttack <= 0)
-        {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            checkStatus();
+            movement();
+            if (Input.GetKeyDown(KeyCode.Mouse1) && m_readyToFire)
             {
-                Attack();
+                Fire();
+            }
+            if (!m_readyToFire && Time.time > m_nextFire) // checks
+            {
+                m_readyToFire = true;
+            }
+
+            if (m_timeAttack <= 0)
+            {
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    Attack();
+                }
+            }
+            else
+            {
+                m_timeAttack -= Time.deltaTime;
             }
         }
-        else
-        {
-            m_timeAttack -= Time.deltaTime;
-        }
+ 
     }
     /// <summary>
     /// Player movement Function
@@ -133,14 +143,9 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            m_hit = true;
+            //m_hit = true;
             m_playerHealth.takeDamage(1);
             Debug.Log("You have collided");
-        }
-        else
-        {
-            m_hit = false;
-            m_damaged = false;
         }
 
         if (collision.gameObject.CompareTag("Potion"))
@@ -150,7 +155,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-/*        if (collision.gameObject.CompareTag("Item"))
+        /*if (collision.gameObject.CompareTag("Item"))
         {
             shot.gameObject.GetComponent<SpriteRenderer>().sprite = collision.gameObject.GetComponent<SpriteRenderer>().sprite;
             Destroy(collision.gameObject);
@@ -164,5 +169,22 @@ public class PlayerController : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(m_attackPos.position, m_attackRange);
+    }
+
+    private void checkStatus()
+    {
+        if (m_playerHealth.getHealth() == 0)
+        {
+            m_anim.SetTrigger("IsDead");
+
+            m_timer -= Time.deltaTime;
+            m_isDead = true;
+
+            if (m_timer <= 0)
+            {
+                SceneManager.LoadScene("Game");
+                Destroy(this.gameObject);
+            }
+        }
     }
 }
