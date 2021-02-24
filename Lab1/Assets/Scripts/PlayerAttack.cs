@@ -51,8 +51,7 @@ public class PlayerAttack : MonoBehaviour
         }
         else
         {
-            timebtwAttack -= Time.deltaTime;
-            
+            timebtwAttack -= Time.deltaTime;  
         }       
 
     }
