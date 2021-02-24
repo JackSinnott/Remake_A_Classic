@@ -1021,7 +1021,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 3
-        y: 133
+        y: 134
         width: 24
         height: 32
       alignment: 0
@@ -1042,9 +1042,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 30
-        y: 133
+        y: 134
         width: 16
-        height: 40
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1063,9 +1063,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 49
-        y: 133
+        y: 134
         width: 32
-        height: 40
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1084,7 +1084,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 84
-        y: 133
+        y: 134
         width: 40
         height: 32
       alignment: 0
@@ -1105,7 +1105,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 133
+        y: 134
         width: 32
         height: 32
       alignment: 0
@@ -1126,7 +1126,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 163
-        y: 133
+        y: 134
         width: 24
         height: 32
       alignment: 0
@@ -1147,7 +1147,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 191
-        y: 133
+        y: 134
         width: 16
         height: 32
       alignment: 0
@@ -1168,7 +1168,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 210
-        y: 133
+        y: 134
         width: 16
         height: 32
       alignment: 0
@@ -1189,7 +1189,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 229
-        y: 133
+        y: 134
         width: 16
         height: 32
       alignment: 0
@@ -1210,7 +1210,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 248
-        y: 133
+        y: 134
         width: 16
         height: 32
       alignment: 0
