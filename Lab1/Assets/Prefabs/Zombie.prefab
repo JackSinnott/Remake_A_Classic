@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2479969147802759960}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.25, y: -0.2, z: 0}
+  m_LocalPosition: {x: -0.152, y: -0.222, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8031520960457939801}
@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 8031520960457939796}
   - component: {fileID: 5756007069349398564}
   - component: {fileID: 1335220448822859966}
+  - component: {fileID: 7421993426875775084}
   m_Layer: 9
   m_Name: Zombie
   m_TagString: Enemy
@@ -196,9 +197,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_health: 1
   m_anim: {fileID: 5756007069349398564}
-  m_moveSpeed: 100
+  m_moveSpeed: -100
   m_groundPos: {fileID: 7278667070532681055}
   m_groundLayer:
     serializedVersion: 2
     m_Bits: 2048
-  m_bodyCollider: {fileID: 0}
+  m_bodyCollider: {fileID: 8031520960457939796}
+--- !u!61 &7421993426875775084
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8031520960457939803}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.015072711, y: -0.20675217}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.33, y: 0.45}
+    newSize: {x: 0.31, y: 0.44}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.18932344, y: 0.036495656}
+  m_EdgeRadius: 0

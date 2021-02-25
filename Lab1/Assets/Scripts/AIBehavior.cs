@@ -102,7 +102,7 @@ public class AIBehavior : MonoBehaviour
         m_rb.velocity = new Vector2(m_moveSpeed * Time.fixedDeltaTime, m_rb.velocity.y);
     }
 
-    void changeDirection()
+    public void changeDirection()
     {
         m_patrol = false;
         transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
@@ -114,5 +114,19 @@ public class AIBehavior : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(m_groundPos.position, 0.1f);
+    }
+
+    public bool getStatus()
+    {
+        return m_patrol;
+    }
+    public void setStatus(bool t_status)
+    {
+      m_patrol = t_status;
+    }
+
+    public void setVelocity(Vector2 t_velocity)
+    {
+        m_rb.velocity = t_velocity;
     }
 }
