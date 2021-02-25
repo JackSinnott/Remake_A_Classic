@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 8031520960457939796}
   - component: {fileID: 5756007069349398564}
   - component: {fileID: 1335220448822859966}
+  - component: {fileID: 1709712770440638071}
   - component: {fileID: 7421993426875775084}
   m_Layer: 9
   m_Name: Zombie
@@ -203,6 +204,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   m_bodyCollider: {fileID: 8031520960457939796}
+--- !u!114 &1709712770440638071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8031520960457939803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3cf7c165321c254e9242d324306e7b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_range: 2
+  m_target: {fileID: 0}
+  m_shotSpawn: {fileID: 0}
+  m_projectile: {fileID: 0}
 --- !u!61 &7421993426875775084
 BoxCollider2D:
   m_ObjectHideFlags: 0

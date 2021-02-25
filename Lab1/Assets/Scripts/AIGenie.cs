@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIDetection : MonoBehaviour
+public class AIGenie : MonoBehaviour
 {
     private float m_targetDistance;
     public float m_range, m_fireRate, m_bulletSpeed;
@@ -27,9 +27,9 @@ public class AIDetection : MonoBehaviour
 
         m_targetDistance = Vector2.Distance(transform.position, m_target.position);
 
-        if(m_targetDistance <= m_range)
+        if (m_targetDistance <= m_range)
         {
-            if(m_target.position.x > transform.position.x && transform.localScale.x > 0 
+            if (m_target.position.x > transform.position.x && transform.localScale.x > 0
                 || m_target.position.x < transform.position.x && transform.localScale.x < 0)
             {
                 m_AIBehavior.changeDirection();
