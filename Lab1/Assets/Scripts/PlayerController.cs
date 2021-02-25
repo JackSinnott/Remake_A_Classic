@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
         m_anim.SetTrigger("Attack");
         for (int i = 0; i < enemiesToDamage.Length; i++)
         {
-            enemiesToDamage[i].GetComponent<EnemyCollision>().TakeDamage(m_damage);
+            enemiesToDamage[i].GetComponent<AIBehavior>().TakeDamage(m_damage);
         }
     }
 
@@ -153,11 +153,13 @@ public class PlayerController : MonoBehaviour
             m_playerHealth.heal(2);
             Destroy(collision.gameObject);
         }
-        /*if (collision.gameObject.CompareTag("Item"))
+        if (collision.gameObject.CompareTag("Item"))
         {
-            shot.gameObject.GetComponent<SpriteRenderer>().sprite = collision.gameObject.GetComponent<SpriteRenderer>().sprite;
+            m_projectile.gameObject.GetComponent<SpriteRenderer>().sprite = collision.gameObject.GetComponent<SpriteRenderer>().sprite;
             Destroy(collision.gameObject);
-        }*/
+        }
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
