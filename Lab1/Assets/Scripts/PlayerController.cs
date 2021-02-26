@@ -122,10 +122,14 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void Fire()
     {
-        GameObject m_projectilefired = Instantiate(m_projectile, m_shotSpawn.position, m_shotSpawn.rotation); // create
-        m_nextFire = Time.time + m_fireRate;
-        m_projectilefired.GetComponent<Rigidbody2D>().velocity = m_projectileSpeed * m_dir; // bullet is fired
-        m_readyToFire = false;
+        if (m_playerHealth.getMana() > 0)
+        {
+            GameObject m_projectilefired = Instantiate(m_projectile, m_shotSpawn.position, m_shotSpawn.rotation); // create
+            m_nextFire = Time.time + m_fireRate;
+            m_projectilefired.GetComponent<Rigidbody2D>().velocity = m_projectileSpeed * m_dir; // bullet is fired
+            m_readyToFire = false;
+            m_playerHealth.useMana();
+        }
     }
 
     void Attack()
