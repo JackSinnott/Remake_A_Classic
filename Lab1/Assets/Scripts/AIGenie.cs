@@ -24,7 +24,6 @@ public class AIGenie : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         m_targetDistance = Vector2.Distance(transform.position, m_target.position);
 
         if (m_targetDistance <= m_range)
@@ -51,7 +50,6 @@ public class AIGenie : MonoBehaviour
         {
             Shoot();
         }
-
     }
 
     void Shoot()

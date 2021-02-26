@@ -217,9 +217,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_range: 2
-  m_target: {fileID: 0}
-  m_shotSpawn: {fileID: 0}
-  m_projectile: {fileID: 0}
+  m_target: {fileID: 7521575666851385923, guid: ce935c21f157fe24b8ab21de531bda33,
+    type: 3}
 --- !u!61 &7421993426875775084
 BoxCollider2D:
   m_ObjectHideFlags: 0

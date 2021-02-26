@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     Health m_playerHealth;
     bool m_hit = false;
     bool m_isDead = false;
+    bool m_respawn = false;
     private float m_knockPower;
     private float m_timer;
 
@@ -49,14 +50,22 @@ public class PlayerController : MonoBehaviour
         m_rb = gameObject.GetComponent<Rigidbody2D>();
         m_playerHealth = GetComponent<Health>();
         m_timer = 5.0f;
+
+        SavePlayer();
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if(!m_isDead)
         {
-            checkStatus();
+            if (m_respawn)
+            {
+                m_anim.SetBool("HasRespawned", true);
+                m_anim.SetBool("IsDead", false);
+                m_respawn = false;
+            }
             movement();
             if (Input.GetKeyDown(KeyCode.Mouse1) && m_readyToFire)
             {
@@ -78,8 +87,11 @@ public class PlayerController : MonoBehaviour
             {
                 m_timeAttack -= Time.deltaTime;
             }
+            if (m_playerHealth.getHealth() == 0)
+            {
+                checkStatus();
+            }
         }
- 
     }
     /// <summary>
     /// Player movement Function
@@ -184,18 +196,35 @@ public class PlayerController : MonoBehaviour
 
     private void checkStatus()
     {
-        if (m_playerHealth.getHealth() == 0)
+
+        m_anim.SetBool("IsDead", true);
+
+        m_timer -= Time.deltaTime;
+        
+        if (m_timer <= 0)
         {
-            m_anim.SetTrigger("IsDead");
-
-            m_timer -= Time.deltaTime;
-            m_isDead = true;
-
-            if (m_timer <= 0)
-            {
-                SceneManager.LoadScene("Game");
-                Destroy(this.gameObject);
-            }
+            m_isDead = false;
+            LoadPlayer();
+            m_respawn = true;
         }
     }
+    
+
+
+    public void SavePlayer()
+    {
+        SaveSystem.SavePlayer(this);
+    }
+
+    public void LoadPlayer()
+    {
+        PlayerData data = SaveSystem.LoadPlayer();
+
+        Vector3 position;
+        position.x = data.position[0];
+        position.y = data.position[1];
+        position.z = data.position[2];
+        this.transform.position = position;
+    }
+
 }

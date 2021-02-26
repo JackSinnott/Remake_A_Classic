@@ -132,7 +132,8 @@ MonoBehaviour:
   m_range: 8
   m_fireRate: 2
   m_bulletSpeed: 8
-  m_target: {fileID: 0}
+  m_target: {fileID: 7521575666851385923, guid: ce935c21f157fe24b8ab21de531bda33,
+    type: 3}
   m_shotSpawn: {fileID: 4927152227194147301}
   m_projectile: {fileID: 8495197207601849099, guid: f033219ccceebff48b2046b10eed3c33,
     type: 3}
