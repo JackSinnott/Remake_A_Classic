@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 4927152226111829720}
   - component: {fileID: 4827813905597173253}
   - component: {fileID: 2239587452941684696}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Genie
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_range: 8
-  m_fireRate: 2
+  m_fireRate: 0.8
   m_bulletSpeed: 8
   m_target: {fileID: 0}
   m_shotSpawn: {fileID: 4927152227194147301}
@@ -155,6 +155,9 @@ MonoBehaviour:
   m_groundLayer:
     serializedVersion: 2
     m_Bits: 2048
+  m_wallLayer:
+    serializedVersion: 2
+    m_Bits: 16384
   m_bodyCollider: {fileID: 4927152226111829715}
 --- !u!82 &4927152226111829725
 AudioSource:
@@ -332,7 +335,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &4927152227194147302
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,7 +345,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4927152227194147301}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SpawnShot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
