@@ -25,11 +25,13 @@ public class ItemDrop : MonoBehaviour
         {
             itemNum = 1;
             Instantiate(itemList[itemNum], EnemyPosition.position, Quaternion.identity);
+            Debug.Log("Dropped item");
         }
         else if (randNum > 65 && randNum < 95) // Kunai drop
         {
             itemNum = 0;
             Instantiate(itemList[itemNum], EnemyPosition.position, Quaternion.identity);
+            Debug.Log("Dropped item");
         }
         else { 
             // do nothing

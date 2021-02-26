@@ -17,7 +17,7 @@ public class Scoring : MonoBehaviour
     {
         if (collider.tag == "Enemy")
         {
-            score.AddScore(scoreValue);
+            //score.AddScore(scoreValue);
         }
     }
 }

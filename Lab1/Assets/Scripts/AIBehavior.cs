@@ -84,9 +84,9 @@ public class AIBehavior : MonoBehaviour
 
         m_deathTimer -= Time.deltaTime;
 
-
         if (m_deathTimer <= 0f)
         {
+            Score.scoreValue += 10;
             Destroy(this.gameObject);
             Debug.Log(m_deathTimer);
             m_deathTimer = 1f;

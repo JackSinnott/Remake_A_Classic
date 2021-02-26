@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     private bool m_grounded;
     public float m_jumpPower;
 
+    public LayerMask m_AttackLayer = 1 << 11 | 1 << 8;
+
     //projectile
     public GameObject m_projectile;
     public Transform m_shotSpawn;
@@ -29,13 +31,12 @@ public class PlayerController : MonoBehaviour
     private float m_nextFire;
     private Vector2 m_dir;
     private Vector2 m_playerScale;
-    Collider2D[] enemiesToDamage;
 
     //attack
     private float m_timeAttack;
     public float m_swingRate;
     public Transform m_attackPos;
-    public LayerMask m_whatIsEnemy;
+
     public float m_attackRange;
     public int m_damage;
 
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour
             movement();
             if (Input.GetKeyDown(KeyCode.Mouse1) && m_readyToFire)
             {
+              
                 Fire();
             }
             if (!m_readyToFire && Time.time > m_nextFire) // checks
@@ -123,20 +125,40 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void Fire()
     {
-        GameObject m_projectilefired = Instantiate(m_projectile, m_shotSpawn.position, m_shotSpawn.rotation); // create
-        m_nextFire = Time.time + m_fireRate;
-        m_projectilefired.GetComponent<Rigidbody2D>().velocity = m_projectileSpeed * m_dir; // bullet is fired
-        m_readyToFire = false;
+        if (m_playerHealth.getMana() > 0)
+        {
+            GameObject m_projectilefired = Instantiate(m_projectile, m_shotSpawn.position, m_shotSpawn.rotation); // create
+            m_nextFire = Time.time + m_fireRate;
+            m_projectilefired.GetComponent<Rigidbody2D>().velocity = m_projectileSpeed * m_dir; // bullet is fired
+            m_readyToFire = false;
+            m_playerHealth.useMana();
+        }
     }
 
     void Attack()
     {
         m_timeAttack = m_swingRate;
-        enemiesToDamage = Physics2D.OverlapCircleAll(m_attackPos.position, m_attackRange, m_whatIsEnemy);
+        var enemies = Physics2D.OverlapCircleAll(
+           m_attackPos.position,
+           m_attackRange,
+           m_AttackLayer);
         m_anim.SetTrigger("Attack");
-        for (int i = 0; i < enemiesToDamage.Length; i++)
+
+        foreach (Collider2D enemy in enemies)
         {
-            enemiesToDamage[i].GetComponent<AIBehavior>().TakeDamage(m_damage);
+            if (enemy.CompareTag("Interact"))
+                enemy.GetComponent<DestroyLight>().OnInteract();
+            else if (enemy.CompareTag("Enemy"))
+            {
+                if (enemy.isTrigger)
+                    continue;
+
+                var enemyScript = enemy.GetComponent<AIBehavior>();
+                if (enemyScript != null)
+                {
+                    enemyScript.TakeDamage(m_damage);
+                }
+            }
         }
     }
 
@@ -163,6 +185,11 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Item"))
         {
             m_projectile.gameObject.GetComponent<SpriteRenderer>().sprite = collision.gameObject.GetComponent<SpriteRenderer>().sprite;
+            Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.CompareTag("Money"))
+        {
+            Score.scoreValue += 50;
             Destroy(collision.gameObject);
         }
     }
