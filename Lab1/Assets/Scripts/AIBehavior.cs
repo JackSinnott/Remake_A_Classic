@@ -20,7 +20,6 @@ public class AIBehavior : MonoBehaviour
     //checks for collisions
     public Transform m_groundPos;
     public LayerMask m_groundLayer;
-    public LayerMask m_wallLayer;
     public Collider2D m_bodyCollider;
 
 
@@ -50,7 +49,7 @@ public class AIBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(m_patrol)
+        if(m_patrol || m_bodyCollider.IsTouchingLayers(m_groundLayer))
         {
             m_changePath = !Physics2D.OverlapCircle(m_groundPos.position, 0.1f, m_groundLayer);
         }
@@ -95,7 +94,7 @@ public class AIBehavior : MonoBehaviour
 
     void Patrol()
     {
-        if(m_changePath || m_bodyCollider.IsTouchingLayers(m_groundLayer) || m_bodyCollider.IsTouchingLayers(m_wallLayer))
+        if(m_changePath)
         {
             changeDirection();
         }
