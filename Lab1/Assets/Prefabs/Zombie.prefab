@@ -210,6 +210,9 @@ MonoBehaviour:
   m_groundLayer:
     serializedVersion: 2
     m_Bits: 2048
+  m_wallLayer:
+    serializedVersion: 2
+    m_Bits: 16384
   m_bodyCollider: {fileID: 8031520960457939796}
 --- !u!114 &1709712770440638071
 MonoBehaviour:

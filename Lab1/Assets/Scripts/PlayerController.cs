@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
         m_rb = gameObject.GetComponent<Rigidbody2D>();
         m_playerHealth = GetComponent<Health>();
         m_timer = 5.0f;
-
+        m_isDead = false;
         save();
     }
 
@@ -58,7 +58,6 @@ public class PlayerController : MonoBehaviour
     {
         if(!m_isDead)
         {
-           
             movement();
             if (Input.GetKeyDown(KeyCode.Mouse1) && m_readyToFire)
             {
@@ -80,12 +79,13 @@ public class PlayerController : MonoBehaviour
             {
                 m_timeAttack -= Time.deltaTime;
             }
-            if (m_playerHealth.getHealth() == 0)
-            {
-                checkStatus();
-            }
         }
- 
+        if (m_playerHealth.getHealth() <= 0)
+        {
+            m_isDead = true;
+            checkStatus();
+        }
+
     }
     /// <summary>
     /// Player movement Function
@@ -164,8 +164,6 @@ public class PlayerController : MonoBehaviour
             m_projectile.gameObject.GetComponent<SpriteRenderer>().sprite = collision.gameObject.GetComponent<SpriteRenderer>().sprite;
             Destroy(collision.gameObject);
         }
-
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -199,11 +197,12 @@ public class PlayerController : MonoBehaviour
 
         if (m_timer <= 0)
         {
-            m_isDead = false;
+
             load();
             m_anim.SetBool("HasRespawned", true);
             m_playerHealth.heal(8);
             m_timer = 5f;
+            m_isDead = false;
         }
 
     }

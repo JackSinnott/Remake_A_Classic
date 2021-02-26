@@ -155,6 +155,9 @@ MonoBehaviour:
   m_groundLayer:
     serializedVersion: 2
     m_Bits: 2048
+  m_wallLayer:
+    serializedVersion: 2
+    m_Bits: 16384
   m_bodyCollider: {fileID: 4927152226111829715}
 --- !u!82 &4927152226111829725
 AudioSource:
