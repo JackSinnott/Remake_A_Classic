@@ -49,6 +49,8 @@ public class PlayerController : MonoBehaviour
         m_rb = gameObject.GetComponent<Rigidbody2D>();
         m_playerHealth = GetComponent<Health>();
         m_timer = 5.0f;
+
+        save();
     }
 
     // Update is called once per frame
@@ -56,7 +58,7 @@ public class PlayerController : MonoBehaviour
     {
         if(!m_isDead)
         {
-            checkStatus();
+           
             movement();
             if (Input.GetKeyDown(KeyCode.Mouse1) && m_readyToFire)
             {
@@ -77,6 +79,10 @@ public class PlayerController : MonoBehaviour
             else
             {
                 m_timeAttack -= Time.deltaTime;
+            }
+            if (m_playerHealth.getHealth() == 0)
+            {
+                checkStatus();
             }
         }
  
@@ -171,6 +177,9 @@ public class PlayerController : MonoBehaviour
             m_playerHealth.takeDamage(1);
             Debug.Log("You have collided with FireBall");
         }
+
+        if (collision.CompareTag("Coffin"))
+            save();
     }
 
     private void OnDrawGizmosSelected()
@@ -184,18 +193,38 @@ public class PlayerController : MonoBehaviour
 
     private void checkStatus()
     {
-        if (m_playerHealth.getHealth() == 0)
+        m_anim.SetTrigger("IsDead");
+
+        m_timer -= Time.deltaTime;
+
+        if (m_timer <= 0)
         {
-            m_anim.SetTrigger("IsDead");
-
-            m_timer -= Time.deltaTime;
-            m_isDead = true;
-
-            if (m_timer <= 0)
-            {
-                SceneManager.LoadScene("Game");
-                Destroy(this.gameObject);
-            }
+            m_isDead = false;
+            load();
+            m_anim.SetBool("HasRespawned", true);
+            m_playerHealth.heal(8);
+            m_timer = 5f;
         }
+
+    }
+
+    public void save()
+    {
+        //Saving
+        PlayerPrefs.SetFloat("PlayerX", this.transform.position.x);
+        PlayerPrefs.SetFloat("PlayerY", this.transform.position.y);
+        PlayerPrefs.SetFloat("PlayerZ", this.transform.position.z);
+        Debug.Log("Saved");
+    }
+
+    private void load()
+    {
+        //Loading
+        transform.position = new Vector3(PlayerPrefs.GetFloat("PlayerX"), PlayerPrefs.GetFloat("PlayerY"), PlayerPrefs.GetFloat("PlayerZ"));
+
     }
 }
+
+
+
+
