@@ -80,7 +80,8 @@ public class PlayerController : MonoBehaviour
                 m_timeAttack -= Time.deltaTime;
             }
         }
-        if (m_playerHealth.getHealth() <= 0)
+
+        if (m_playerHealth.getHealth() == 0)
         {
             m_isDead = true;
             checkStatus();
@@ -191,13 +192,13 @@ public class PlayerController : MonoBehaviour
 
     private void checkStatus()
     {
-        m_anim.SetTrigger("IsDead");
+        m_anim.SetBool("HasRespawned", false);
+        m_anim.SetBool("IsDead", true);
 
         m_timer -= Time.deltaTime;
-
         if (m_timer <= 0)
         {
-
+            m_anim.SetBool("IsDead", false);
             load();
             m_anim.SetBool("HasRespawned", true);
             m_playerHealth.heal(8);
