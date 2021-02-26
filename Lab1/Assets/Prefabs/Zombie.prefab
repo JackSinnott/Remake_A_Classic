@@ -42,10 +42,10 @@ GameObject:
   - component: {fileID: 8031520960457939800}
   - component: {fileID: 6541023032893515742}
   - component: {fileID: 8031520960457939796}
-  - component: {fileID: 5756007069349398564}
+  - component: {fileID: 7421993426875775084}
   - component: {fileID: 1335220448822859966}
   - component: {fileID: 1709712770440638071}
-  - component: {fileID: 7421993426875775084}
+  - component: {fileID: 5756007069349398564}
   m_Layer: 9
   m_Name: Zombie
   m_TagString: Enemy
@@ -152,7 +152,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.029779404, y: -0.0037401319}
+  m_Offset: {x: -0.033032708, y: -0.0037401319}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -163,27 +163,34 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.2695588, y: 0.36748028}
+  m_Size: {x: 0.2760654, y: 0.36748028}
   m_EdgeRadius: 0
---- !u!95 &5756007069349398564
-Animator:
-  serializedVersion: 3
+--- !u!61 &7421993426875775084
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8031520960457939803}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a50bdd21dd687d14eba036646e30fedd, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.015072711, y: -0.20675217}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.33, y: 0.45}
+    newSize: {x: 0.31, y: 0.44}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.18932344, y: 0.036495656}
+  m_EdgeRadius: 0
 --- !u!114 &1335220448822859966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,31 +225,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_range: 2
   m_target: {fileID: 0}
-  m_shotSpawn: {fileID: 0}
-  m_projectile: {fileID: 0}
---- !u!61 &7421993426875775084
-BoxCollider2D:
+--- !u!95 &5756007069349398564
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8031520960457939803}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.015072711, y: -0.20675217}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.33, y: 0.45}
-    newSize: {x: 0.31, y: 0.44}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.18932344, y: 0.036495656}
-  m_EdgeRadius: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a50bdd21dd687d14eba036646e30fedd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
