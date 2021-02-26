@@ -249,7 +249,7 @@ public class PlayerController : MonoBehaviour
     {
         //Loading
         transform.position = new Vector3(PlayerPrefs.GetFloat("PlayerX"), PlayerPrefs.GetFloat("PlayerY"), PlayerPrefs.GetFloat("PlayerZ"));
-
+        Score.scoreValue = 0;
     }
 }
 

@@ -12,12 +12,14 @@ public class Coffin : MonoBehaviour
         player = GetComponent<PlayerController>();
         playerHealh = GetComponent<Health>();
     }
+
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.CompareTag("Player"))
         {
             player.save();
             playerHealh.heal(8);
+            playerHealh.restoreMana(8);
         }
 
     }
