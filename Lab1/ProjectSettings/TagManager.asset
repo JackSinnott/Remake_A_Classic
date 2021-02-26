@@ -19,6 +19,7 @@ TagManager:
   - Potion
   - Item
   - AudioManager
+  - Coffin
   layers:
   - Default
   - TransparentFX
