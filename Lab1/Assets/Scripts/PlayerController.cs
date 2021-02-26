@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
         m_rb = gameObject.GetComponent<Rigidbody2D>();
         m_playerHealth = GetComponent<Health>();
         m_timer = 5.0f;
-        m_isDead = false;
+
         save();
     }
 
@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
     {
         if(!m_isDead)
         {
+           
             movement();
             if (Input.GetKeyDown(KeyCode.Mouse1) && m_readyToFire)
             {
@@ -79,14 +80,12 @@ public class PlayerController : MonoBehaviour
             {
                 m_timeAttack -= Time.deltaTime;
             }
+            if (m_playerHealth.getHealth() == 0)
+            {
+                checkStatus();
+            }
         }
-
-        if (m_playerHealth.getHealth() == 0)
-        {
-            m_isDead = true;
-            checkStatus();
-        }
-
+ 
     }
     /// <summary>
     /// Player movement Function
@@ -123,10 +122,14 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void Fire()
     {
-        GameObject m_projectilefired = Instantiate(m_projectile, m_shotSpawn.position, m_shotSpawn.rotation); // create
-        m_nextFire = Time.time + m_fireRate;
-        m_projectilefired.GetComponent<Rigidbody2D>().velocity = m_projectileSpeed * m_dir; // bullet is fired
-        m_readyToFire = false;
+        if (m_playerHealth.getMana() > 0)
+        {
+            GameObject m_projectilefired = Instantiate(m_projectile, m_shotSpawn.position, m_shotSpawn.rotation); // create
+            m_nextFire = Time.time + m_fireRate;
+            m_projectilefired.GetComponent<Rigidbody2D>().velocity = m_projectileSpeed * m_dir; // bullet is fired
+            m_readyToFire = false;
+            m_playerHealth.useMana();
+        }
     }
 
     void Attack()
@@ -165,6 +168,8 @@ public class PlayerController : MonoBehaviour
             m_projectile.gameObject.GetComponent<SpriteRenderer>().sprite = collision.gameObject.GetComponent<SpriteRenderer>().sprite;
             Destroy(collision.gameObject);
         }
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -192,18 +197,17 @@ public class PlayerController : MonoBehaviour
 
     private void checkStatus()
     {
-        m_anim.SetBool("HasRespawned", false);
-        m_anim.SetBool("IsDead", true);
+        m_anim.SetTrigger("IsDead");
 
         m_timer -= Time.deltaTime;
+
         if (m_timer <= 0)
         {
-            m_anim.SetBool("IsDead", false);
+            m_isDead = false;
             load();
             m_anim.SetBool("HasRespawned", true);
             m_playerHealth.heal(8);
             m_timer = 5f;
-            m_isDead = false;
         }
 
     }
