@@ -192,6 +192,7 @@ public class PlayerController : MonoBehaviour
 
     private void checkStatus()
     {
+        m_rb.velocity = Vector2.zero;
         m_anim.SetBool("HasRespawned", false);
         m_anim.SetBool("IsDead", true);
 
