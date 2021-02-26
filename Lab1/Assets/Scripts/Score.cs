@@ -5,29 +5,18 @@ using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
-    public Transform Player;
 
-    public Text scoreText;
-
-    private int score;
+    public static int scoreValue = 0;
+    Text score;
 
     private void Start()
     {
-        score = 0;
+        score = GetComponent<Text>();
     }
+
     private void Update()
     {
-       
+        score.text = "Score: " + scoreValue;
     }
 
-    public void AddScore(int t_newScore)
-    {
-        score += t_newScore;
-        UpdateScore();
-    }
-
-    void UpdateScore()
-    {
-        scoreText.text = "Score: " + score;
-    }
 }
